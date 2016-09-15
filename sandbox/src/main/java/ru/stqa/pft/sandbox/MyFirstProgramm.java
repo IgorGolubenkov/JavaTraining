@@ -1,4 +1,6 @@
-public class OneTest {
+package ru.stqa.pft.sandbox;
+
+public class MyFirstProgramm {
 
     public static void main(String[] args) {
 

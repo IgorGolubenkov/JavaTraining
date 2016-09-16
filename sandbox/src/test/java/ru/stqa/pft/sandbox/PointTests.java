@@ -22,4 +22,11 @@ public class PointTests {
         double dist = p2.distance(p1);
         Assert.assertEquals(dist, 0.0);
     }
+    @Test
+    public void testDistanceThree() {
+        Point p1 = new Point(-2, -2);
+        Point p2 = new Point(-5, -5);
+        double dist = p2.distance(p1);
+        Assert.assertEquals(dist, 4.242640687119285);
+    }
 }

@@ -28,10 +28,6 @@ public class TestCreationGroup {
         wd = new ChromeDriver();
         /**wd = new FirefoxDriver();*/
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    }
-    
-    @Test
-    public void TestCreationGroup() {
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
@@ -40,6 +36,11 @@ public class TestCreationGroup {
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys("secret");
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+
+    }
+    
+    @Test
+    public void testCreationGroup() {
         wd.findElement(By.linkText("groups")).click();
         wd.findElement(By.name("new")).click();
         wd.findElement(By.name("group_name")).click();

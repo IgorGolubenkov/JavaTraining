@@ -38,7 +38,7 @@ public class TestCreationContact {
         goToAddandEditContactPage();
         fillGroupForm(new ContactData("test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"));
         submitContactCreation();
-        Thread.sleep(4000);
+        Thread.sleep(3000);
         }
     private void goToAddandEditContactPage() {
          wd.findElement(By.xpath("//a[contains(.,'add new')]")).click();

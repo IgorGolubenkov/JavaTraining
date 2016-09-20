@@ -17,14 +17,6 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
 
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
     public void init() {
         System.setProperty("webdriver.chrome.driver",
                 "D:\\Training Java\\JavaTraining\\addressbook-web-tests\\src\\ExternalJars\\chromedriver_win\\chromedriver.exe" );
@@ -45,9 +37,6 @@ public class ApplicationManager {
     }
     public Navigationhelper getNavigationHelper() {
         return navigationHelper;
-    }
-    public SessionHelper getSessionHelper() {
-        return sessionHelper;
     }
     public ContactHelper getContactHelper() {
         return contactHelper;

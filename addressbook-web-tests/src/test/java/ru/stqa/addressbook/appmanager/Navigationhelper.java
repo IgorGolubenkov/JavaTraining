@@ -3,17 +3,15 @@ package ru.stqa.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Navigationhelper {
-    /**FirefoxDriver wd;*/
-    private ChromeDriver wd;
+public class Navigationhelper extends HelperBase{
 
     public Navigationhelper(ChromeDriver wd) {
-        this.wd = wd;
+        super(wd);
     }
     public void goToGroupPage() {
-        wd.findElement(By.linkText("groups")).click();
+        click(By.linkText("groups"));
     }
     public void goToAddandEditContactPage() {
-        wd.findElement(By.xpath("//a[contains(.,'add new')]")).click();
+        click(By.xpath("//a[contains(.,'add new')]"));
     }
 }

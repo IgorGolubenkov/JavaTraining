@@ -34,10 +34,11 @@ public class TestCreationContact {
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
         }
     @Test
-    public void testCreationContact() {
+    public void testCreationContact() throws InterruptedException {
         goToAddandEditContactPage();
         fillGroupForm(new ContactData("test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"));
         submitContactCreation();
+        Thread.sleep(4000);
         }
     private void goToAddandEditContactPage() {
          wd.findElement(By.xpath("//a[contains(.,'add new')]")).click();
@@ -68,8 +69,8 @@ public class TestCreationContact {
         wd.findElement(By.xpath("//input[@name='homepage']")).clear();
         wd.findElement(By.xpath("//input[@name='homepage']")).sendKeys(contactData.getHomepage());
     }
-    public void submitContactCreation() {
-        wd.findElement(By.name("submit")).click();
+    private void submitContactCreation() {
+        wd.findElement(By.xpath(".//*[@id='content']/form/input[21]")).click();
     }
     @AfterMethod
     public void tearDown() {

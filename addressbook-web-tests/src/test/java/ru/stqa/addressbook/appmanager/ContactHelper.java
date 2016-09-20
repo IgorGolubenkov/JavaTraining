@@ -1,49 +1,18 @@
-package ru.stqa.addressbook;
+package ru.stqa.addressbook.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
+import ru.stqa.addressbook.model.ContactData;
 
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.*;
-
-public class TestCreationContact {
+public class ContactHelper {
 
     /**FirefoxDriver wd;*/
-    ChromeDriver wd;
+    private ChromeDriver wd;
 
-    @BeforeMethod
-    public void setUp() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "D:\\Training Java\\JavaTraining\\addressbook-web-tests\\src\\ExternalJars\\chromedriver_win\\chromedriver.exe");
-        wd = new ChromeDriver();
-        /**wd = new FirefoxDriver();*/
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        login("admin", "secret");
-        }
-    private void login(String username, String password) {
-        wd.get("http://localhost/addressbook/");
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys(username);
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-        }
-    @Test
-    public void testCreationContact() throws InterruptedException {
-        goToAddandEditContactPage();
-        fillGroupForm(new ContactData("test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"));
-        submitContactCreation();
-        Thread.sleep(3000);
-        }
-    private void goToAddandEditContactPage() {
-         wd.findElement(By.xpath("//a[contains(.,'add new')]")).click();
+    public ContactHelper(ChromeDriver wd) {
+        this.wd = wd;
     }
-    private void fillGroupForm(ContactData contactData) {
+    public void fillGroupForm(ContactData contactData) {
         wd.findElement(By.xpath("//input[@name='firstname']")).click();
         wd.findElement(By.xpath("//input[@name='firstname']")).clear();
         wd.findElement(By.xpath("//input[@name='firstname']")).sendKeys(contactData.getFirstname());
@@ -69,19 +38,7 @@ public class TestCreationContact {
         wd.findElement(By.xpath("//input[@name='homepage']")).clear();
         wd.findElement(By.xpath("//input[@name='homepage']")).sendKeys(contactData.getHomepage());
     }
-    private void submitContactCreation() {
+    public void submitContactCreation() {
         wd.findElement(By.xpath(".//*[@id='content']/form/input[21]")).click();
-    }
-    @AfterMethod
-    public void tearDown() {
-        wd.quit();
-    }
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
     }
 }

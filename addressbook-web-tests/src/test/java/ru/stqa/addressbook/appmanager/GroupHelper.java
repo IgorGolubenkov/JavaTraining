@@ -29,7 +29,6 @@ public class GroupHelper extends HelperBase{
     public void selectGroup() {
         clickSearch(By.xpath(".//*[@id='content']/form/span[1]/input"));
     }
-
     public void initGroupModification() {
         clickSearch(By.xpath(".//*[@id='content']/form/input[3]"));
     }

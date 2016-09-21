@@ -9,9 +9,9 @@ public class Navigationhelper extends HelperBase{
         super(wd);
     }
     public void goToGroupPage() {
-        click(By.linkText("groups"));
+        clickSearch(By.linkText("groups"));
     }
     public void goToAddandEditContactPage() {
-        click(By.xpath("//a[contains(.,'add new')]"));
+        clickSearch(By.xpath("//a[contains(.,'add new')]"));
     }
 }

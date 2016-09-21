@@ -12,7 +12,7 @@ public class SessionHelper extends HelperBase{
         wd.get("http://localhost/addressbook/");
         type(By.name("user"), username);
         type(By.name("pass"), password);
-        click(By.xpath("//form[@id='LoginForm']/input[3]"));
+        clickSearch(By.xpath("//form[@id='LoginForm']/input[3]"));
     }
 }
 

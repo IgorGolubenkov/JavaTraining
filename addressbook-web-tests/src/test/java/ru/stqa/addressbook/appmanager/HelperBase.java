@@ -2,8 +2,8 @@ package ru.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class HelperBase {
     /**FirefoxDriver wd;*/
@@ -13,12 +13,14 @@ public class HelperBase {
         this.wd = wd;
     }
 
-    protected void click(By locator) {
+    protected void clickSearch(By locator) {
         wd.findElement(locator).click();
     }
-
+    protected void clickLocator(WebElement locator) {
+        locator.click();
+    }
     protected void type(By locator, String text) {
-        click(locator);
+        clickSearch(locator);
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
     }

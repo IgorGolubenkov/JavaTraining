@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.appmanager;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,10 @@ public class HelperBase {
         clickSearch(locator);
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
+    }
+    protected Alert alert() {
+        Alert alert = wd.switchTo().alert();
+        return alert;
     }
     public boolean isAlertPresent() {
         try {

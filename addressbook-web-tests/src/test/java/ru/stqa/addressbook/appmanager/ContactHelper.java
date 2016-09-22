@@ -2,15 +2,15 @@ package ru.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.addressbook.model.ContactData;
 
 import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
-    public ContactHelper(ChromeDriver wd) {
+    public ContactHelper(WebDriver wd) {
         super(wd);
     }
     public void fillGroupForm(ContactData contactData) {
@@ -27,7 +27,7 @@ public class ContactHelper extends HelperBase{
         clickSearch(By.xpath(".//*[@id='content']/form/input[21]"));
     }
     public void deleteSelectedContact() {
-        List<WebElement> contact = wd.findElementsByXPath("//input[@name='selected[]']");
+        List<WebElement> contact = wd.findElements(By.xpath("//input[@name='selected[]']"));  //wd.findElementsByXPath("//input[@name='selected[]']");
         WebElement locator = contact.get(0);
         clickLocator(locator);
     }
@@ -39,7 +39,7 @@ public class ContactHelper extends HelperBase{
         alert.accept();
     }
     public void modificationSelectedContact() {
-        List<WebElement> contact = wd.findElementsByXPath("//img[@title='Edit']");
+        List<WebElement> contact = wd.findElements(By.xpath("//img[@title='Edit']"));   //wd.findElementsByXPath("//img[@title='Edit']");
         WebElement locator = contact.get(0);
         clickLocator(locator);
     }

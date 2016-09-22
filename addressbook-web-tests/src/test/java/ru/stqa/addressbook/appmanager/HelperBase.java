@@ -1,16 +1,12 @@
 package ru.stqa.addressbook.appmanager;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class HelperBase {
-    /**FirefoxDriver wd;*/
-    protected ChromeDriver wd;
+    protected WebDriver wd;
 
-    public HelperBase(ChromeDriver wd) {
+    public HelperBase(WebDriver wd) {
         this.wd = wd;
     }
 

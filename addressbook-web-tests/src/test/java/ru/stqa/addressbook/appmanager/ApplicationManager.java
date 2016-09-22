@@ -1,7 +1,5 @@
 package ru.stqa.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -26,7 +24,7 @@ public class ApplicationManager {
     public void init() {
 
         if (browser == BrowserType.CHROME) {
-            String setProperty = System.setProperty("webdriver.chrome.driver",
+            System.setProperty("webdriver.chrome.driver",
                     "D:/Training Java/JavaTraining/addressbook-web-tests/src/ExternalJars/chromedriver_win/chromedriver.exe");
             wd = new ChromeDriver();
         } else if (browser == BrowserType.FIREFOX) {

@@ -1,8 +1,5 @@
 package ru.stqa.pft.sandbox;
 
-/**
- * Created by igolu on 15.09.2016.
- */
 public class Point {
 
     public int x;

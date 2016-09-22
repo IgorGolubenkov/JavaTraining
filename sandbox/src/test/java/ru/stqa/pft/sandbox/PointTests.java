@@ -3,9 +3,6 @@ package ru.stqa.pft.sandbox;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-/**
- * Created by igolu on 16.09.2016.
- */
 public class PointTests {
 
     @Test

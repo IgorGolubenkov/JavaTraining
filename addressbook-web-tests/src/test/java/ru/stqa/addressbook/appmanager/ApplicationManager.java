@@ -24,9 +24,10 @@ public class ApplicationManager {
         this.browser = browser;
     }
     public void init() {
-        String setProperty = System.setProperty("webdriver.chrome.driver",
-                "D:\\Training Java\\JavaTraining\\addressbook-web-tests\\src\\ExternalJars\\chromedriver_win\\chromedriver.exe");
+
         if (browser == BrowserType.CHROME) {
+            String setProperty = System.setProperty("webdriver.chrome.driver",
+                    "D:/Training Java/JavaTraining/addressbook-web-tests/src/ExternalJars/chromedriver_win/chromedriver.exe");
             wd = new ChromeDriver();
         } else if (browser == BrowserType.FIREFOX) {
             wd = new FirefoxDriver();

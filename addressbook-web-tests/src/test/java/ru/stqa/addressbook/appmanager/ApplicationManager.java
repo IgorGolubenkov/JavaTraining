@@ -2,10 +2,13 @@ package ru.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.net.MalformedURLException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -23,13 +26,20 @@ public class ApplicationManager {
     }
     public void init() {
 
-        if (browser == BrowserType.CHROME) {
+        String DriverPath = "D:/Training Java/JavaTraining/addressbook-web-tests/src/ExternalJars";
+        if (Objects.equals(browser, BrowserType.CHROME)) {
             System.setProperty("webdriver.chrome.driver",
-                    "D:/Training Java/JavaTraining/addressbook-web-tests/src/ExternalJars/chromedriver_win/chromedriver.exe");
+                    DriverPath + "/chromedriver_win/chromedriver.exe");
             wd = new ChromeDriver();
-        } else if (browser == BrowserType.FIREFOX) {
+        } else if (Objects.equals(browser, BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
-        } else if (browser == BrowserType.IE) {
+        } else if (Objects.equals(browser, BrowserType.EDGE)) {
+            System.setProperty("webdriver.edge.driver",
+                    DriverPath + "/edgedriver/MicrosoftWebDriver.exe");
+            wd = new EdgeDriver();
+        } else if (Objects.equals(browser, BrowserType.IE)) {
+            System.setProperty("webdriver.ie.driver",
+                    DriverPath + "/iedriver/IEDriverServer.exe");
             wd = new InternetExplorerDriver();
         }
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);

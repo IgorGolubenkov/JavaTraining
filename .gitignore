@@ -15,3 +15,5 @@ gradle-app.setting
 .idea/workspace.xml
 .idea/misc.xml
 addressbook-web-tests/src/test/java/ru/stqa/addressbook/TestOne.java
+sandbox/src/main/java/ru/stqa/pft/sandbox/Equality.java
+sandbox/src/main/java/ru/stqa/pft/sandbox/Equality.java

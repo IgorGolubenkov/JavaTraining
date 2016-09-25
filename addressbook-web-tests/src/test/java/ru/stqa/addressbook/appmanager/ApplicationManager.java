@@ -42,7 +42,7 @@ public class ApplicationManager {
                     DriverPath + "/iedriver/IEDriverServer.exe");
             wd = new InternetExplorerDriver();
         }
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         sessionHelper = new SessionHelper(wd);
         groupHelper = new GroupHelper(wd);
         contactHelper = new ContactHelper(wd);

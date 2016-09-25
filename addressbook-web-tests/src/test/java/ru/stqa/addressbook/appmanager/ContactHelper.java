@@ -1,9 +1,8 @@
 package ru.stqa.addressbook.appmanager;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public class ContactHelper extends HelperBase{
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
-    public void fillGroupForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.xpath("//input[@name='firstname']"), contactData.getFirstname());
         type(By.xpath("//input[@name='middlename']"), contactData.getMiddlename());
         type(By.xpath("//input[@name='lastname']"), contactData.getLastname());
@@ -22,7 +21,14 @@ public class ContactHelper extends HelperBase{
         type(By.xpath("//input[@name='company']"), contactData.getCompany());
         type(By.xpath("//textarea[@name='address']"), contactData.getAddress());
         type(By.xpath("//input[@name='homepage']"), contactData.getHomepage());
+
+        if (creation) {
+            new Select(wd.findElement(By.xpath("//select[@name='new_group']"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.xpath("//select[@name='new_group']")));
+        }
     }
+
     public void submitContactCreation() {
         clickSearch(By.xpath(".//*[@id='content']/form/input[21]"));
     }

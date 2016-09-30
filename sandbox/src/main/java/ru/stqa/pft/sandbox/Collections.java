@@ -17,7 +17,7 @@ public class Collections {
         //languages.add("PHP");
         System.out.println(languages.get(1));
 
-        for ( int i = 0; i < languages.size(); i++) {
+        for (String l : languages) {
             System.out.println("Язык: " + l);
         }
     }

@@ -63,22 +63,22 @@ public class ContactHelper extends HelperBase{
         app.getNavigationHelper().goToHomePage();
     }
 
-    public boolean thereIsAGroupForChoice() {
-        List<WebElement> choicesGroupsList = wd.findElements(By.xpath("//select[@name='new_group']//options"));
-        int lenGroupsList = choicesGroupsList.size();
-        try {
-
-        }
-        if (lenGroupsList > 1) {
-            for (WebElement groupFromList : choicesGroupsList) {
-                String nameGroup = groupFromList.getText();
-                //if (nameGroup.equals(contactData.getFirstname())) {
-                return true;
-            }
-                } else {
-            return false;
-        }
-    }
+    //public boolean thereIsAGroupForChoice() {
+    //    List<WebElement> choicesGroupsList = wd.findElements(By.xpath("//select[@name='new_group']//options"));
+    //    int lenGroupsList = choicesGroupsList.size();
+    //    try {
+    //
+    //    }
+    //    if (lenGroupsList > 1) {
+    //        for (WebElement groupFromList : choicesGroupsList) {
+    //            String nameGroup = groupFromList.getText();
+    //            //if (nameGroup.equals(contactData.getFirstname())) {
+    //            return true;
+    //        }
+    //            } else {
+    //        return false;
+    //    }
+    //}
 
     public boolean isThereAContact() {
         return isElementPresent(By.xpath("//input[@name='selected[]']"));

@@ -25,7 +25,9 @@ public class ApplicationManager {
     }
     public void init() {
 
-        String DriverPath = "D:/Training Java/JavaTraining/addressbook-web-tests/src/ExternalJars";
+        String DriverPath = "C:/AutomationTesting/JavaTraining/addressbook-web-tests/src/ExternalJars";
+        // рабочая директория "C:/AutomationTesting/JavaTraining/addressbook-web-tests/src/ExternalJars"
+        // домашная директория "D:/Training Java/JavaTraining/addressbook-web-tests/src/ExternalJars"
         if (Objects.equals(browser, BrowserType.CHROME)) {
             System.setProperty("webdriver.chrome.driver",
                     DriverPath + "/chromedriver_win/chromedriver.exe");

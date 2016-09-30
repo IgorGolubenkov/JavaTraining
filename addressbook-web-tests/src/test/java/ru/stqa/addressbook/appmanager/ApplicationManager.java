@@ -7,7 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
-import java.net.MalformedURLException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 

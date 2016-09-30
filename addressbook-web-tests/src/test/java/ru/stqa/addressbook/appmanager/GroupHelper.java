@@ -40,7 +40,6 @@ public class GroupHelper extends HelperBase{
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupPage();
-
     }
     public boolean isThereAGroup() {
         return isElementPresent(By.xpath(".//*[@id='content']/form/span[1]/input"));

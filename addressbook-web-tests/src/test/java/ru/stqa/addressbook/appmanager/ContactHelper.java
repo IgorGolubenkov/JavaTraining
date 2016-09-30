@@ -4,7 +4,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
+import ru.stqa.addressbook.model.GroupData;
 
+import java.sql.Array;
 import java.util.List;
 
 public class ContactHelper extends HelperBase{
@@ -51,5 +53,34 @@ public class ContactHelper extends HelperBase{
     }
     public void submitContactModification() {
         clickSearch(By.xpath(".//*[@id='content']/form[1]/input[1]"));
+    }
+
+    public void createContact(ApplicationManager app) {
+        app.getNavigationHelper().goToAddandEditContactPage();
+        fillContactForm(new ContactData("test1", "test2", "test3",
+                "test4", "test5", "test6", "test7", "test8", "test1"), true);
+        submitContactCreation();
+        app.getNavigationHelper().goToHomePage();
+    }
+
+    public boolean thereIsAGroupForChoice() {
+        List<WebElement> choicesGroupsList = wd.findElements(By.xpath("//select[@name='new_group']//options"));
+        int lenGroupsList = choicesGroupsList.size();
+        try {
+
+        }
+        if (lenGroupsList > 1) {
+            for (WebElement groupFromList : choicesGroupsList) {
+                String nameGroup = groupFromList.getText();
+                //if (nameGroup.equals(contactData.getFirstname())) {
+                return true;
+            }
+                } else {
+            return false;
+        }
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.xpath("//input[@name='selected[]']"));
     }
 }

@@ -4,10 +4,14 @@ import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
+import java.util.List;
+
 public class TestCreationContact extends TestBase{
 
     @Test
     public void testCreationContact() {
+        app.getNavigationHelper().goToHomePage();
+        List<GroupData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().goToAddandEditContactPage();
         //if (! app.getContactHelper().thereIsAGroupForChoice()) {
         //    app.getGroupHelper().createGroup(new GroupData("test1", "test2", "test3"));

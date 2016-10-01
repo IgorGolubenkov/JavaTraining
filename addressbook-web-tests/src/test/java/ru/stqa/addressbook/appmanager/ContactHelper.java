@@ -35,10 +35,8 @@ public class ContactHelper extends HelperBase{
     public void submitContactCreation() {
         clickSearch(By.xpath(".//*[@id='content']/form/input[21]"));
     }
-    public void deleteSelectedContact() {
-        List<WebElement> contact = wd.findElements(By.xpath("//input[@name='selected[]']"));  //wd.findElementsByXPath("//input[@name='selected[]']");
-        WebElement locator = contact.get(0);
-        clickLocator(locator);
+    public void deleteSelectedContact(int index) {
+        wd.findElements(By.xpath("//input[@name='selected[]']")).get(index).click();  //wd.findElementsByXPath("//input[@name='selected[]']");
     }
     public void submitContactDeletion() {
         clickSearch(By.xpath("//input[@value='Delete']"));
@@ -47,10 +45,8 @@ public class ContactHelper extends HelperBase{
         Alert alert = alert();
         alert.accept();
     }
-    public void modificationSelectedContact() {
-        List<WebElement> contact = wd.findElements(By.xpath("//img[@title='Edit']"));   //wd.findElementsByXPath("//img[@title='Edit']");
-        WebElement locator = contact.get(0);
-        clickLocator(locator);
+    public void modificationSelectedContact(int index) {
+        wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();   //wd.findElementsByXPath("//img[@title='Edit']");
     }
     public void submitContactModification() {
         clickSearch(By.xpath(".//*[@id='content']/form[1]/input[1]"));

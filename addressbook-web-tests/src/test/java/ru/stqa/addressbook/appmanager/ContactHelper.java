@@ -4,9 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
-import ru.stqa.addressbook.model.GroupData;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,29 +62,27 @@ public class ContactHelper extends HelperBase{
         app.getNavigationHelper().goToHomePage();
     }
 
-    //public boolean thereIsAGroupForChoice() {
-    //    List<WebElement> choicesGroupsList = wd.findElements(By.xpath("//select[@name='new_group']//options"));
-    //    int lenGroupsList = choicesGroupsList.size();
-    //    try {
-    //
-    //    }
-    //    if (lenGroupsList > 1) {
-    //        for (WebElement groupFromList : choicesGroupsList) {
-    //            String nameGroup = groupFromList.getText();
-    //            //if (nameGroup.equals(contactData.getFirstname())) {
-    //            return true;
-    //        }
-    //            } else {
-    //        return false;
-    //    }
-    //}
+    public boolean thereIsAGroupForChoice() {
+        return isElementPresent(By.xpath("//select[@name='to_group']/option"));
+    }
 
     public boolean isThereAContact() {
         return isElementPresent(By.xpath("//input[@name='selected[]']"));
     }
 
-    public List<GroupData> getContactList() {
+    public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elemets = wd.findElements(By.xpath("//tr[@name='entry']"));
+        List<WebElement> elementsLastName = wd.findElements(By.xpath("//tr[@name='entry']//td[2]"));
+        List<WebElement> elementsFirstName = wd.findElements(By.xpath("//tr[@name='entry']//td[3]"));
+        for (WebElement elementLastName : elementsLastName ) {
+            String firstName = elementLastName.getText();
+            for (WebElement elementFirstName : elementsFirstName) {
+                String lastName = elementFirstName.getText();
+                ContactData contact = new ContactData(firstName, null, lastName, null, null, null, null, null, null);
+                contacts.add(contact);
+            }
+        }
+        return contacts;
     }
+
 }

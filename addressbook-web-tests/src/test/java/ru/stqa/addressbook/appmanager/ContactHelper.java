@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.appmanager;
 
+import org.aspectj.weaver.ast.Not;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -76,11 +77,12 @@ public class ContactHelper extends HelperBase{
         List<WebElement> elementsFirstName = wd.findElements(By.xpath("//tr[@name='entry']//td[3]"));
         for (WebElement elementLastName : elementsLastName ) {
             String firstName = elementLastName.getText();
+            String lastName = new String();
             for (WebElement elementFirstName : elementsFirstName) {
-                String lastName = elementFirstName.getText();
-                ContactData contact = new ContactData(firstName, null, lastName, null, null, null, null, null, null);
-                contacts.add(contact);
+                lastName = elementFirstName.getText();
             }
+            ContactData contact = new ContactData(firstName, null, lastName, null, null, null, null, null, null);
+            contacts.add(contact);
         }
         return contacts;
     }

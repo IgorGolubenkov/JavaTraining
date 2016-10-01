@@ -13,7 +13,9 @@ public class TestCreationContact extends TestBase{
     public void testCreationContact() {
         app.getNavigationHelper().goToHomePage();
         if (! app.getContactHelper().thereIsAGroupForChoice()) {
+            app.getNavigationHelper().goToGroupPage();
             app.getGroupHelper().createGroup(new GroupData("test1", "test2", "test3"));
+            app.getNavigationHelper().goToHomePage();
         }
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().goToAddandEditContactPage();

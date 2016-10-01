@@ -8,6 +8,7 @@ public class Navigationhelper extends HelperBase{
     public Navigationhelper(WebDriver wd) {
         super(wd);
     }
+
     public void goToGroupPage() {
         if (isElementPresent(By.xpath("//h1[contains(.,'Groups')]")) &&
                 wd.findElement(By.xpath("//h1[contains(.,'Groups')]")).getText().equals("Group") &&
@@ -16,9 +17,11 @@ public class Navigationhelper extends HelperBase{
         }
         clickSearch(By.linkText("groups"));
     }
+
     public void goToAddandEditContactPage() {
         clickSearch(By.xpath("//a[contains(.,'add new')]"));
     }
+
     public void goToHomePage() {
         if (isElementPresent(By.id("maintable"))) {
             return;

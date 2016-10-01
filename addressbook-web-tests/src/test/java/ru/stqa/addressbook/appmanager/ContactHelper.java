@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
+import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +56,19 @@ public class ContactHelper extends HelperBase{
         clickSearch(By.xpath(".//*[@id='content']/form[1]/input[1]"));
     }
 
-    public void createContact(ApplicationManager app) {
+    public void createContact(ApplicationManager app, ContactData contactData, boolean creation) {
+        if (! thereIsAGroupForChoice()) {
+            initCreationGroup(app, new GroupData("test1", "test2", "test3"));
+        }
         app.getNavigationHelper().goToAddandEditContactPage();
-        fillContactForm(new ContactData("test1", "test2", "test3",
-                "test4", "test5", "test6", "test7", "test8", "test1"), true);
+        fillContactForm(contactData, creation);
         submitContactCreation();
+        app.getNavigationHelper().goToHomePage();
+    }
+
+    public void initCreationGroup(ApplicationManager app, GroupData group) {
+        app.getNavigationHelper().goToGroupPage();
+        app.getGroupHelper().createGroup(group);
         app.getNavigationHelper().goToHomePage();
     }
 

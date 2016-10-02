@@ -4,9 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class Navigationhelper extends HelperBase{
+    private final ApplicationManager app;
 
-    public Navigationhelper(WebDriver wd) {
-        super(wd);
+    //public Navigationhelper(WebDriver wd) {
+    //    super(wd);
+    //}
+
+    public Navigationhelper(ApplicationManager app) {
+        super(app.wd);
+        this.app = app;
     }
 
     public void goToGroupPage() {

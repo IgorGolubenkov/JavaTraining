@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase{
+    private final ApplicationManager app;
 
-    public ContactHelper(WebDriver wd) {
-        super(wd);
+    public ContactHelper(ApplicationManager app) {
+        super(app.wd);
+        this.app = app;
     }
+
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.xpath("//input[@name='firstname']"), contactData.getFirstname());
         type(By.xpath("//input[@name='middlename']"), contactData.getMiddlename());
@@ -35,26 +38,31 @@ public class ContactHelper extends HelperBase{
     public void submitContactCreation() {
         clickSearch(By.xpath(".//*[@id='content']/form/input[21]"));
     }
+
     public void deleteSelectedContact(int index) {
         wd.findElements(By.xpath("//input[@name='selected[]']")).get(index).click();  //wd.findElementsByXPath("//input[@name='selected[]']");
     }
+
     public void submitContactDeletion() {
         clickSearch(By.xpath("//input[@value='Delete']"));
     }
+
     public void confirmationContactDeletion() {
         Alert alert = alert();
         alert.accept();
     }
+
     public void modificationSelectedContact(int index) {
         wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();   //wd.findElementsByXPath("//img[@title='Edit']");
     }
+
     public void submitContactModification() {
         clickSearch(By.xpath(".//*[@id='content']/form[1]/input[1]"));
     }
 
-    public void createContact(ApplicationManager app, ContactData contactData, boolean creation) {
+    public void createContact(ContactData contactData, boolean creation) {
         if (! thereIsAGroupForChoice()) {
-            initCreationGroup(app, new GroupData("test1", "test2", "test3"));
+            initCreationGroup(new GroupData("test1", "test2", "test3"));
         }
         app.getNavigationHelper().goToAddandEditContactPage();
         fillContactForm(contactData, creation);
@@ -62,7 +70,7 @@ public class ContactHelper extends HelperBase{
         app.getNavigationHelper().goToHomePage();
     }
 
-    public void initCreationGroup(ApplicationManager app, GroupData group) {
+    public void initCreationGroup(GroupData group) {
         app.getNavigationHelper().goToGroupPage();
         app.getGroupHelper().createGroup(group);
         app.getNavigationHelper().goToHomePage();

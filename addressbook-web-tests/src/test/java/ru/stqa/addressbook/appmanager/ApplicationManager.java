@@ -44,10 +44,10 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        navigationHelper = new Navigationhelper(this);
         sessionHelper = new SessionHelper(wd);
-        groupHelper = new GroupHelper(wd);
-        contactHelper = new ContactHelper(wd);
-        navigationHelper = new Navigationhelper(wd);
+        groupHelper = new GroupHelper(this);
+        contactHelper = new ContactHelper(this);
         sessionHelper.login("admin", "secret");
     }
     public void stop() {

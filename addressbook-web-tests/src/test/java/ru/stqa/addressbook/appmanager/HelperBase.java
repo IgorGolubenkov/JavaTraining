@@ -9,7 +9,7 @@ public class HelperBase {
     public HelperBase(WebDriver wd) {
         this.wd = wd;
     }
-
+    
     protected void clickSearch(By locator) {
         wd.findElement(locator).click();
     }

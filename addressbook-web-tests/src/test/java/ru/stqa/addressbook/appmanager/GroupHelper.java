@@ -55,10 +55,13 @@ public class GroupHelper extends HelperBase{
 
     public List<GroupData> getGroupList() {
         List<GroupData> groups = new ArrayList<GroupData>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        //List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        List<WebElement> elements = wd.findElements(By.xpath("//span[@class='group']"));
         for (WebElement element : elements ) {
             String name = element.getText();
-            GroupData group = new GroupData(name, null, null);
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            //String id = element.findElement(By.xpath("/input[@name='selected[]']")).getAttribute("value");
+            GroupData group = new GroupData(name, null, null, id);
             groups.add(group);
         }
         return groups;

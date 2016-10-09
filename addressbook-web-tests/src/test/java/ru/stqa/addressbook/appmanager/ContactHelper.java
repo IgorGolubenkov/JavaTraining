@@ -1,6 +1,5 @@
 package ru.stqa.addressbook.appmanager;
 
-import org.aspectj.weaver.ast.Not;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -62,18 +61,18 @@ public class ContactHelper extends HelperBase{
 
     public void createContact(ContactData contactData, boolean creation) {
         if (! thereIsAGroupForChoice()) {
-            initCreationGroup(new GroupData("test1", "test2", "test3"));
+            initCreationGroup(new GroupData().withName("test1").withHeader("test2").withFooter("test3"));
         }
-        app.getNavigationHelper().goToAddandEditContactPage();
+        app.goTo().goToAddandEditContactPage();
         fillContactForm(contactData, creation);
         submitContactCreation();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
     }
 
     public void initCreationGroup(GroupData group) {
-        app.getNavigationHelper().goToGroupPage();
-        app.getGroupHelper().createGroup(group);
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().groupPage();
+        app.group().create(group);
+        app.goTo().goToHomePage();
     }
 
     public boolean thereIsAGroupForChoice() {

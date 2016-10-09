@@ -17,6 +17,24 @@ public class GroupHelper extends HelperBase{
         this.app = app;
     }
 
+    public boolean isThereAGroup() {
+        return isElementPresent(By.xpath(".//*[@id='content']/form/span[1]/input"));
+    }
+
+    public List<GroupData> list() {
+        List<GroupData> groups = new ArrayList<GroupData>();
+        //List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        List<WebElement> elements = wd.findElements(By.xpath("//span[@class='group']"));
+        for (WebElement element : elements ) {
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            //String id = element.findElement(By.xpath("/input[@name='selected[]']")).getAttribute("value");
+            GroupData group = new GroupData().withName(name).withId(id);
+            groups.add(group);
+        }
+        return groups;
+    }
+
     public void returnToGroupPage() {
         clickSearch(By.xpath("//a[contains(.,'group page')]"));
     }
@@ -51,32 +69,29 @@ public class GroupHelper extends HelperBase{
         clickSearch(By.xpath("//input[@name='update']"));
     }
 
-    public void createGroup(GroupData group) {
+    public void create(GroupData group) {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupPage();
     }
 
-    public boolean isThereAGroup() {
-        return isElementPresent(By.xpath(".//*[@id='content']/form/span[1]/input"));
+    public void modify(int index, GroupData group) {
+        selectGroup(index);
+        initGroupModification();
+        fillGroupForm(group);
+        submitGroupModification();
+        returnToGroupPage();
+    }
+
+    public void delete(int index) {
+        selectGroup(index);
+        deleteSelectedGroup();
+        returnToGroupPage();
     }
 
     public int getGroupCount() {
         return wd.findElements(By.xpath("//input[@name='selected[]']")).size();
     }
 
-    public List<GroupData> getGroupList() {
-        List<GroupData> groups = new ArrayList<GroupData>();
-        //List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-        List<WebElement> elements = wd.findElements(By.xpath("//span[@class='group']"));
-        for (WebElement element : elements ) {
-            String name = element.getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            //String id = element.findElement(By.xpath("/input[@name='selected[]']")).getAttribute("value");
-            GroupData group = new GroupData(name, null, null, id);
-            groups.add(group);
-        }
-        return groups;
-    }
 }

@@ -15,7 +15,7 @@ public class Navigationhelper extends HelperBase{
         this.app = app;
     }
 
-    public void goToGroupPage() {
+    public void groupPage() {
         if (isElementPresent(By.xpath("//h1[contains(.,'Groups')]")) &&
                 wd.findElement(By.xpath("//h1[contains(.,'Groups')]")).getText().equals("Group") &&
                 isElementPresent(By.xpath(".//*[@id='content']/form/input[1]"))) {

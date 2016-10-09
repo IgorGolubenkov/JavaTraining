@@ -1,12 +1,13 @@
 package ru.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase{
 
@@ -29,6 +30,18 @@ public class GroupHelper extends HelperBase{
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             //String id = element.findElement(By.xpath("/input[@name='selected[]']")).getAttribute("value");
+            GroupData group = new GroupData().withName(name).withId(id);
+            groups.add(group);
+        }
+        return groups;
+    }
+
+    public Set<GroupData> all() {
+        Set<GroupData> groups = new HashSet<GroupData>();
+        List<WebElement> elements = wd.findElements(By.xpath("//span[@class='group']"));
+        for (WebElement element : elements ) {
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             GroupData group = new GroupData().withName(name).withId(id);
             groups.add(group);
         }
@@ -61,6 +74,10 @@ public class GroupHelper extends HelperBase{
         wd.findElements(By.xpath("//input[@name='selected[]']")).get(index).click();
     }
 
+    public void selectGroupById(int id) {
+        wd.findElement(By.xpath("//input[@value='"+ id +"']")).click();
+    }
+
     public void initGroupModification() {
         clickSearch(By.xpath(".//*[@id='content']/form/input[3]"));
     }
@@ -76,8 +93,8 @@ public class GroupHelper extends HelperBase{
         returnToGroupPage();
     }
 
-    public void modify(int index, GroupData group) {
-        selectGroup(index);
+    public void modify(GroupData group) {
+        selectGroupById(group.getId());
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
@@ -86,6 +103,12 @@ public class GroupHelper extends HelperBase{
 
     public void delete(int index) {
         selectGroup(index);
+        deleteSelectedGroup();
+        returnToGroupPage();
+    }
+
+    public void delete(GroupData group) {
+        selectGroupById(group.getId());
         deleteSelectedGroup();
         returnToGroupPage();
     }

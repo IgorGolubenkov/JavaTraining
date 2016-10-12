@@ -1,8 +1,10 @@
 package ru.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,6 +24,8 @@ public class GroupHelper extends HelperBase{
         return isElementPresent(By.xpath(".//*[@id='content']/form/span[1]/input"));
     }
 
+    private Groups groupCache = null;
+
     public List<GroupData> list() {
         List<GroupData> groups = new ArrayList<GroupData>();
         //List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
@@ -36,16 +40,19 @@ public class GroupHelper extends HelperBase{
         return groups;
     }
 
-    public Set<GroupData> all() {
-        Set<GroupData> groups = new HashSet<GroupData>();
+    public Groups all() {
+        if (groupCache != null) {
+            return new Groups(groupCache);
+        }
+        groupCache = new Groups();
         List<WebElement> elements = wd.findElements(By.xpath("//span[@class='group']"));
         for (WebElement element : elements ) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             GroupData group = new GroupData().withName(name).withId(id);
-            groups.add(group);
+            groupCache.add(group);
         }
-        return groups;
+        return new Groups(groupCache);
     }
 
     public void returnToGroupPage() {
@@ -90,6 +97,7 @@ public class GroupHelper extends HelperBase{
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
+        groupCache = null;
         returnToGroupPage();
     }
 
@@ -98,6 +106,7 @@ public class GroupHelper extends HelperBase{
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
+        groupCache = null;
         returnToGroupPage();
     }
 
@@ -110,11 +119,17 @@ public class GroupHelper extends HelperBase{
     public void delete(GroupData group) {
         selectGroupById(group.getId());
         deleteSelectedGroup();
+        groupCache = null;
         returnToGroupPage();
     }
 
     public int getGroupCount() {
         return wd.findElements(By.xpath("//input[@name='selected[]']")).size();
+    }
+
+    public void openNewTab() throws InterruptedException {
+        String NewTabLink = Keys.chord(Keys.CONTROL,"t");
+        wd.findElement(By.linkText("urlLink")).sendKeys(NewTabLink );
     }
 
 }

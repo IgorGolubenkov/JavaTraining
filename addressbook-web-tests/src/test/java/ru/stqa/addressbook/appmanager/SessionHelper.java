@@ -9,6 +9,7 @@ public class SessionHelper extends HelperBase{
         super(wd);
     }
     public void login(String username, String password) {
+        wd.manage().getCookies();
         wd.get("http://localhost/addressbook/");
         type(By.name("user"), username);
         type(By.name("pass"), password);

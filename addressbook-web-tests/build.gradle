@@ -7,9 +7,10 @@ repositories {
 
 dependencies {
     compile 'org.testng:testng:6.9.10'
-    compile 'org.seleniumhq.selenium:selenium-edge-driver:3.0.0-beta3'
+    compile 'org.seleniumhq.selenium:selenium-parent:2.53.1'
     compile 'com.applitools:eyes-selenium-java-jersey1_17-sf2_51_0:2.51'
     compile 'pl.oakfusion:chromedriver:2.9'
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
 }
 
 

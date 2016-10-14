@@ -20,6 +20,7 @@ public class TestCreationContact extends TestBase{
         }
     }
 
+    @Test(enabled = true)
     public void testCreationContact() {
         Contacts before = app.contact().all();
         ContactData contact = new ContactData().withFirstname("test1").withMiddlename("test2").withLastname("test3").withNickname("test4")

@@ -51,7 +51,7 @@ public class ContactData {
         this.firstname = firstname;
         return this;
     }
-    public ContactData withId(String middlename) {
+    public ContactData withMiddlename(String middlename) {
         this.middlename = middlename;
         return this;
     }

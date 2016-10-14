@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
+import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
@@ -59,12 +60,9 @@ public class ContactHelper extends HelperBase{
         clickSearch(By.xpath(".//*[@id='content']/form[1]/input[1]"));
     }
 
-    public void createContact(ContactData contactData, boolean creation) {
-        if (! thereIsAGroupForChoice()) {
-            initCreationGroup(new GroupData().withName("test1").withHeader("test2").withFooter("test3"));
-        }
+    public void createContact(ContactData contact) {
         app.goTo().goToAddandEditContactPage();
-        fillContactForm(contactData, creation);
+        fillContactForm(contact, true);
         submitContactCreation();
         app.goTo().goToHomePage();
     }
@@ -91,7 +89,21 @@ public class ContactHelper extends HelperBase{
             String lastName = elemContact.findElements(By.tagName("td")).get(1).getText();
             String address = elemContact.findElements(By.tagName("td")).get(3).getText();
             int id = Integer.parseInt(elemContact.findElement(By.tagName("input")).getAttribute("id"));
-            ContactData contact = new ContactData(id, firstName, null, lastName, null, null, null, address, null, null);
+            ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAddress(address);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public Contacts all() {
+        Contacts contacts = new Contacts();
+        List<WebElement> elemContacts = wd.findElements(By.xpath("//tr[@name='entry']"));
+        for (WebElement elemContact : elemContacts ) {
+            String firstName = elemContact.findElements(By.tagName("td")).get(2).getText();
+            String lastName = elemContact.findElements(By.tagName("td")).get(1).getText();
+            String address = elemContact.findElements(By.tagName("td")).get(3).getText();
+            int id = Integer.parseInt(elemContact.findElement(By.tagName("input")).getAttribute("id"));
+            ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAddress(address);
             contacts.add(contact);
         }
         return contacts;

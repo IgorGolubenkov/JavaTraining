@@ -23,12 +23,6 @@ public class TestCreationGroup extends TestBase {
         //int after = app.group().getGroupCount();
         Groups after = app.group().all();
         assertThat(after.size(), equalTo(before.size() + 1));
-        //int max = 0;
-        //for (GroupData g : after) {
-        //    if (g.getId() > max) {
-        //        max = g.getId();
-        //    }
-        //}
         before.add(group);
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }

@@ -13,6 +13,8 @@ import java.util.List;
 public class ContactHelper extends HelperBase{
     private final ApplicationManager app;
 
+    private Contacts contactCashe = null;
+
     public ContactHelper(ApplicationManager app) {
         super(app.wd);
         this.app = app;
@@ -63,6 +65,7 @@ public class ContactHelper extends HelperBase{
         app.goTo().goToAddandEditContactPage();
         fillContactForm(contact, true);
         submitContactCreation();
+        contactCashe = null;
         app.goTo().goToHomePage();
         wd.navigate().refresh();
         Thread.sleep(2000);
@@ -97,7 +100,10 @@ public class ContactHelper extends HelperBase{
     }
 
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCashe != null) {
+            return new Contacts(contactCashe);
+        }
+        contactCashe = new Contacts();
         List<WebElement> elemContacts = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement elemContact : elemContacts ) {
             String firstName = elemContact.findElements(By.tagName("td")).get(2).getText();
@@ -105,9 +111,9 @@ public class ContactHelper extends HelperBase{
             String address = elemContact.findElements(By.tagName("td")).get(3).getText();
             int id = Integer.parseInt(elemContact.findElement(By.tagName("input")).getAttribute("id"));
             ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAddress(address);
-            contacts.add(contact);
+            contactCashe.add(contact);
         }
-        return contacts;
+        return contactCashe;
     }
 
 
@@ -124,6 +130,7 @@ public class ContactHelper extends HelperBase{
         selectedToById(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
+        contactCashe = null;
         app.goTo().goToHomePage();
     }
 
@@ -139,6 +146,7 @@ public class ContactHelper extends HelperBase{
         selectedForDeletedToById(contact.getId());
         submitContactDeletion();
         confirmationContactDeletion();
+        contactCashe = null;
         app.goTo().goToHomePage();
     }
 }

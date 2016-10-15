@@ -21,7 +21,7 @@ public class TestCreationContact extends TestBase{
     }
 
     @Test(enabled = true)
-    public void testCreationContact() {
+    public void testCreationContact() throws InterruptedException {
         Contacts before = app.contact().all();
         ContactData contact = new ContactData().withFirstname("test1").withMiddlename("test2").withLastname("test3").withNickname("test4")
                 .withTitle("test4").withCompany("test5").withAddress("test6").withHomepage("test7").withGroup("test254");

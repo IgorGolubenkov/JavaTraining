@@ -19,6 +19,19 @@ public class ContactHelper extends HelperBase{
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
+        if (creation) {
+            try {
+                new Select(wd.findElement(By.xpath("//select[@name='new_group']"))).selectByVisibleText(contactData.getGroup());
+            } catch (Exception exc) {
+                GroupData groupData = new GroupData().withName("test group");
+                System.out.println(exc);
+                initCreationGroup(groupData);
+                app.goTo().goToHomePage();
+                app.goTo().goToAddandEditContactPage();
+            }
+        } else {
+            Assert.assertFalse(isElementPresent(By.xpath("//select[@name='new_group']")));
+        }
         type(By.xpath("//input[@name='firstname']"), contactData.getFirstname());
         type(By.xpath("//input[@name='middlename']"), contactData.getMiddlename());
         type(By.xpath("//input[@name='lastname']"), contactData.getLastname());
@@ -27,20 +40,10 @@ public class ContactHelper extends HelperBase{
         type(By.xpath("//input[@name='company']"), contactData.getCompany());
         type(By.xpath("//textarea[@name='address']"), contactData.getAddress());
         type(By.xpath("//input[@name='homepage']"), contactData.getHomepage());
-
-        if (creation) {
-            new Select(wd.findElement(By.xpath("//select[@name='new_group']"))).selectByVisibleText(contactData.getGroup());
-        } else {
-            Assert.assertFalse(isElementPresent(By.xpath("//select[@name='new_group']")));
-        }
     }
 
     public void submitContactCreation() {
         clickSearch(By.xpath(".//*[@id='content']/form/input[21]"));
-    }
-
-    public void deleteSelectedContact(int index) {
-        wd.findElements(By.xpath("//input[@name='selected[]']")).get(index).click();  //wd.findElementsByXPath("//input[@name='selected[]']");
     }
 
     public void submitContactDeletion() {
@@ -52,19 +55,17 @@ public class ContactHelper extends HelperBase{
         alert.accept();
     }
 
-    public void modificationSelectedContact(int index) {
-        wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();   //wd.findElementsByXPath("//img[@title='Edit']");
-    }
-
     public void submitContactModification() {
         clickSearch(By.xpath(".//*[@id='content']/form[1]/input[1]"));
     }
 
-    public void createContact(ContactData contact) {
+    public void createContact(ContactData contact) throws InterruptedException {
         app.goTo().goToAddandEditContactPage();
         fillContactForm(contact, true);
         submitContactCreation();
         app.goTo().goToHomePage();
+        wd.navigate().refresh();
+        Thread.sleep(2000);
     }
 
     public void initCreationGroup(GroupData group) {
@@ -109,4 +110,35 @@ public class ContactHelper extends HelperBase{
         return contacts;
     }
 
+
+    public void modificationSelectedContact(int index) {
+        wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();   //wd.findElementsByXPath("//img[@title='Edit']");
+    }
+
+
+    public void selectedToById(int id) {
+        wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
+    }
+
+    public void modify(ContactData contact) {
+        selectedToById(contact.getId());
+        fillContactForm(contact, false);
+        submitContactModification();
+        app.goTo().goToHomePage();
+    }
+
+    public void deleteSelectedContact(int index) {
+        wd.findElements(By.xpath("//input[@name='selected[]']")).get(index).click();  //wd.findElementsByXPath("//input[@name='selected[]']");
+    }
+
+    private void selectedForDeletedToById(int id) {
+        wd.findElement(By.xpath("//input[@id='" + id + "']")).click();
+    }
+
+    public void delete(ContactData contact) {
+        selectedForDeletedToById(contact.getId());
+        submitContactDeletion();
+        confirmationContactDeletion();
+        app.goTo().goToHomePage();
+    }
 }

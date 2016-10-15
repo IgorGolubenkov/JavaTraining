@@ -1,27 +1,25 @@
 package ru.stqa.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTest extends TestBase{
 
-    @AfterMethod
+    @BeforeMethod
     public void ensurePreconditions() throws InterruptedException {
         app.goTo().goToHomePage();
         if (! app.contact().isThereAContact()) {
-            app.contact().createContact(new ContactData().withFirstname("test1").withMiddlename("test2").withLastname("test3").withNickname("test4")
-                    .withTitle("test4").withCompany("test5").withAddress("test6").withHomepage("test7"));
+            app.contact().createContact(new ContactData().withFirstname("test1").withMiddlename("test2").withLastname("test3")
+                    .withNickname("test4").withTitle("test4").withCompany("test5").withAddress("test6")
+                    .withHomepage("test7").withGroup("test group"));
         }
     }
 
@@ -34,13 +32,10 @@ public class ContactModificationTest extends TestBase{
                 .withHomepage("edit test8");
         app.contact().modify(contact);
         Contacts after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size());
-
-        before.withOut(modifyConctacts);
-        before.withAdded(contact);
+        assertEquals(after.size(), before.size());
         //Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
         //before.sort(byId);
         //after.sort(byId);
-        assertThat(after, equalTo(before));
+        assertThat(after, equalTo(before.withOut(modifyConctacts).withAdded(contact)));
     }
 }

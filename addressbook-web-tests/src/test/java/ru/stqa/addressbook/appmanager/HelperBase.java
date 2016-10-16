@@ -3,6 +3,8 @@ package ru.stqa.addressbook.appmanager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.File;
+
 public class HelperBase {
     protected WebDriver wd;
 
@@ -13,9 +15,11 @@ public class HelperBase {
     protected void clickSearch(By locator) {
         wd.findElement(locator).click();
     }
+
     protected void clickLocator(WebElement locator) {
         locator.click();
     }
+
     protected void type(By locator, String text) {
         clickSearch(locator);
         if (text != null) {
@@ -26,10 +30,18 @@ public class HelperBase {
             }
         }
     }
+
+    protected void attach(By locator, File file) {
+        if (file != null) {
+            wd.findElement(locator).sendKeys(file.getAbsolutePath());
+        }
+    }
+
     protected Alert alert() {
         Alert alert = wd.switchTo().alert();
         return alert;
     }
+
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
@@ -38,6 +50,7 @@ public class HelperBase {
             return false;
         }
     }
+
     protected boolean isElementPresent(By locator) {
         try {
             wd.findElement(locator);

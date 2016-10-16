@@ -38,6 +38,7 @@ public class ContactHelper extends HelperBase{
         type(By.xpath("//input[@name='middlename']"), contactData.getMiddlename());
         type(By.xpath("//input[@name='lastname']"), contactData.getLastname());
         type(By.xpath("//input[@name='nickname']"), contactData.getNickname());
+        attach(By.xpath("//input[@name='photo']"), contactData.getPhoto());
         type(By.xpath("//input[@name='home']"), contactData.getHomePhone());
         type(By.xpath("//input[@name='mobile']"), contactData.getMobilePhone());
         type(By.xpath("//input[@name='work']"), contactData.getWorkPhone());
@@ -64,9 +65,9 @@ public class ContactHelper extends HelperBase{
         clickSearch(By.xpath(".//*[@id='content']/form[1]/input[1]"));
     }
 
-    public void createContact(ContactData contact) throws InterruptedException {
+    public void createContact(ContactData contact, boolean addInGroups) throws InterruptedException {
         app.goTo().goToAddandEditContactPage();
-        fillContactForm(contact, true);
+        fillContactForm(contact, addInGroups);
         submitContactCreation();
         contactCashe = null;
         app.goTo().goToHomePage();

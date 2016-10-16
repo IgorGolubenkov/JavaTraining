@@ -1,5 +1,7 @@
 package ru.stqa.addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
     private int id;
     private String firstname;
@@ -15,6 +17,7 @@ public class ContactData {
     private String address;
     private String homepage;
     private String group;
+    private File photo;
 
     public int getId() {
         return id;
@@ -57,6 +60,9 @@ public class ContactData {
     }
     public String getGroup() {
         return group;
+    }
+    public File getPhoto() {
+        return photo;
     }
 
     public ContactData withId(int id) {
@@ -115,7 +121,10 @@ public class ContactData {
         this.group = group;
         return this;
     }
-
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
 
     @Override
     public String toString() {

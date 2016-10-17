@@ -12,6 +12,7 @@ dependencies {
     compile 'pl.oakfusion:chromedriver:2.9'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'com.beust:jcommander:1.58'
+    compile 'com.thoughtworks.xstream:xstream:1.4.9'
 }
 
 

@@ -1,5 +1,8 @@
 package ru.stqa.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("group")
 public class GroupData {
 
     private int id;

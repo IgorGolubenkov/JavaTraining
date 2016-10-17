@@ -67,7 +67,6 @@ public class GroupDataGenerator {
         try (Writer writer = new FileWriter(file)){
             writer.write(json);
         }
-
     }
 
     private void saveAsXML(List<GroupData> groups, File file) throws IOException {

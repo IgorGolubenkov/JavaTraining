@@ -30,15 +30,15 @@ public class TestBase {
         app.stop();
     }
 
-    @BeforeMethod
-    public void logTestStart(Method method, Object[] parametrs) {
-        logger.info(String.format("Start test %s, with parameters %s", method.getName(), Arrays.asList(parametrs)));
-    }
+    //@BeforeMethod
+    //public void logTestStart(Method method, Object[] parametrs) {
+    //    logger.info(String.format("Start test %s, with parameters %s", method.getName(), Arrays.asList(parametrs)));
+    //}
 
-    @AfterMethod(alwaysRun = true)
-    public void  logTestStop(Method method) {
-        logger.info(String.format("Stop test %s", method.getName()));
-
-    }
+    //@AfterMethod(alwaysRun = true)
+    //public void  logTestStop(Method method) {
+    //    logger.info(String.format("Stop test %s", method.getName()));
+    //
+    //}
 
 }

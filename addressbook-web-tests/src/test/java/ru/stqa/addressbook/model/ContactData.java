@@ -17,6 +17,9 @@ public class ContactData {
     private String address;
     private String homepage;
     private String group;
+    private String email;
+    private String email2;
+    private String email3;
     private File photo;
 
     public int getId() {
@@ -58,11 +61,25 @@ public class ContactData {
     public String getHomepage() {
         return homepage;
     }
+    public String getEmail() {
+        return email;
+    }
+    public String getEmail2() {
+        return email2;
+    }
+    public String getEmail3() {
+        return email3;
+    }
     public String getGroup() {
         return group;
     }
     public File getPhoto() {
         return photo;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public ContactData withId(int id) {
@@ -121,8 +138,12 @@ public class ContactData {
         this.group = group;
         return this;
     }
-    public ContactData withPhoto(File photo) {
-        this.photo = photo;
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
         return this;
     }
 
@@ -143,7 +164,20 @@ public class ContactData {
                 ", address='" + address + '\'' +
                 ", homepage='" + homepage + '\'' +
                 ", group='" + group + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", photo=" + photo +
                 '}';
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
     }
 
     @Override
@@ -166,7 +200,11 @@ public class ContactData {
         if (company != null ? !company.equals(that.company) : that.company != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
-        return group != null ? group.equals(that.group) : that.group == null;
+        if (group != null ? !group.equals(that.group) : that.group != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
+        if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
+        return photo != null ? photo.equals(that.photo) : that.photo == null;
 
     }
 
@@ -186,6 +224,10 @@ public class ContactData {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
         result = 31 * result + (group != null ? group.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (email2 != null ? email2.hashCode() : 0);
+        result = 31 * result + (email3 != null ? email3.hashCode() : 0);
+        result = 31 * result + (photo != null ? photo.hashCode() : 0);
         return result;
     }
 }

@@ -1,13 +1,9 @@
 package ru.stqa.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
 
-import java.util.Arrays;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,7 +24,7 @@ public class ContactPhoneTests extends TestBase{
     @Test
     public void testContactPhones() {
         ContactData contact = app.contact().all().iterator().next();
-        ContactData contactInfoFromEditFrom = app.contact().infoFromEditFrom(contact);
+        ContactData contactInfoFromEditFrom = app.contact().infoFromEditFromPhone(contact);
 
         assertThat(contact.getAllPhone(), equalTo(mergePhones(contactInfoFromEditFrom)));
         //assertThat(contact.getHomePhone(), equalTo(cleaned(contactInfoFromEditFrom.getHomePhone())));

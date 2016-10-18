@@ -56,7 +56,7 @@ public class TestCreationGroup extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroupsFromJSON() throws IOException {
-        try (BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")))) {
+        try (BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")))) {
             String json = "";
             String line = redear.readLine();
             while (line != null) {

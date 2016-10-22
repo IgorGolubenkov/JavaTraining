@@ -22,6 +22,7 @@ public class ContactData {
     private String email2;
     private String email3;
     private File photo;
+    private String allInfo;
 
     public int getId() {
         return id;
@@ -79,6 +80,9 @@ public class ContactData {
     }
     public File getPhoto() {
         return photo;
+    }
+    public String getAllInfo(String allInfo) {
+        return this.allInfo;
     }
 
 
@@ -154,13 +158,16 @@ public class ContactData {
         this.email2 = email2;
         return this;
     }
-
     public ContactData withEmail3(String email3) {
         this.email3 = email3;
         return this;
     }
     public ContactData withPhoto(File photo) {
         this.photo = photo;
+        return this;
+    }
+    public ContactData withAllInfo(String allInfo) {
+        this.allInfo = allInfo;
         return this;
     }
 
@@ -181,10 +188,12 @@ public class ContactData {
                 ", address='" + address + '\'' +
                 ", homepage='" + homepage + '\'' +
                 ", group='" + group + '\'' +
+                ", allEmail='" + allEmail + '\'' +
                 ", email='" + email + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
                 ", photo=" + photo +
+                ", allInfo='" + allInfo + '\'' +
                 '}';
     }
 
@@ -209,10 +218,12 @@ public class ContactData {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
         if (group != null ? !group.equals(that.group) : that.group != null) return false;
+        if (allEmail != null ? !allEmail.equals(that.allEmail) : that.allEmail != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
         if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
-        return photo != null ? photo.equals(that.photo) : that.photo == null;
+        if (photo != null ? !photo.equals(that.photo) : that.photo != null) return false;
+        return allInfo != null ? allInfo.equals(that.allInfo) : that.allInfo == null;
 
     }
 
@@ -232,10 +243,12 @@ public class ContactData {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
         result = 31 * result + (group != null ? group.hashCode() : 0);
+        result = 31 * result + (allEmail != null ? allEmail.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (email2 != null ? email2.hashCode() : 0);
         result = 31 * result + (email3 != null ? email3.hashCode() : 0);
         result = 31 * result + (photo != null ? photo.hashCode() : 0);
+        result = 31 * result + (allInfo != null ? allInfo.hashCode() : 0);
         return result;
     }
 }

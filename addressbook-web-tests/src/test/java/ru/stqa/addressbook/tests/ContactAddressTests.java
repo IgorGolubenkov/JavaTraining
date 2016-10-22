@@ -13,7 +13,8 @@ public class ContactAddressTests extends TestBase{
     public void ensurePreconditions() throws InterruptedException {
         app.goTo().goToHomePage();
         if (! app.contact().isThereAContact()) {
-            app.contact().createContact(new ContactData().withAddress("   country Russia city Moscow, Lenina street apartment 1 apartment 1"), false);
+            app.contact().createContact(new ContactData().withFirstname("test1").withLastname("test3")
+                    .withAddress("   country Russia city Moscow, Lenina street apartment 1 apartment 1"), false);
         }
     }
 

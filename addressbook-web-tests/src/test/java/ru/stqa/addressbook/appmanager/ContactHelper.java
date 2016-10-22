@@ -201,4 +201,32 @@ public class ContactHelper extends HelperBase{
                 .withEmail2(email2).withEmail3(email3).withAddress(address);
     }
 
+    public ContactData infoFromDetailPage(ContactData contact) {
+        openDetailInfoPageContactById(contact.getId());
+        String allInfo = wd.findElement(By.cssSelector("div[id='content']")).getText();
+        String[] allInformation = allInfo.split("\n");
+        String[] fullName = allInformation[0].split("\\s");
+        String firstName = fullName[0];
+        String lastName = null;
+        if (fullName.length == 3) {
+            lastName = fullName[2];
+        } else if (fullName.length == 2) {
+            lastName = fullName[1];
+        }
+        String address = allInformation[4];
+        String email = allInformation[11].replaceAll("(\\s{1}[(]w*.*$)", "");
+        String email2 = allInformation[12].replaceAll("(\\s{1}[(]w*.*$)", "");
+        String email3 = allInformation[13].replaceAll("(\\s{1}[(]w*.*$)", "");
+        String homePhone = allInformation[6].replaceAll("(^H: )", "");
+        String mobilePhone = allInformation[7].replaceAll("(^M: )", "");
+        String workPhone = allInformation[8].replaceAll("(^W: )", "");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFirstname(firstName).withLastname(lastName)
+                .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone).withEmail(email)
+                .withEmail2(email2).withEmail3(email3).withAddress(address);
+    }
+
+    private void openDetailInfoPageContactById(int id) {
+        wd.findElement(By.xpath(String.format(String.format("//a[@href='view.php?id=%s']", id)))).click();
+    }
 }

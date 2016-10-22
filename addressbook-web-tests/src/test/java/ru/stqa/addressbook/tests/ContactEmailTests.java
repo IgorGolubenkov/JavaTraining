@@ -1,7 +1,5 @@
 package ru.stqa.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
@@ -11,7 +9,6 @@ import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.stqa.addressbook.tests.ContactPhoneTests.cleaned;
 
 public class ContactEmailTests extends TestBase{
 
@@ -31,9 +28,19 @@ public class ContactEmailTests extends TestBase{
         assertThat(contact.getEmail(), equalTo(cleaned(contactInfoFromEditFrom.getEmail())));
         assertThat(contact.getEmail2(), equalTo(cleaned(contactInfoFromEditFrom.getEmail2())));
         assertThat(contact.getEmail3(), equalTo(cleaned(contactInfoFromEditFrom.getEmail3())));
+        assertThat(mergeEmailMasterPage(contact), equalTo(mergeEmailEditForm(contactInfoFromEditFrom)));
+    }
+
+    private String mergeEmailEditForm(ContactData contact) {
+        return Stream.of(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+                .filter((s -> ! s.equals(""))).map(ContactEmailTests::cleaned).collect(Collectors.joining("\n"));
+    }
+    private String mergeEmailMasterPage(ContactData contact) {
+        return Stream.of(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+                .filter((s -> ! s.equals(""))).collect(Collectors.joining("\n"));
     }
 
     public static String cleaned(String email) {
-        return email.replaceAll("\\s", "");
+        return email.replaceAll("(^\\s*)|(\\s*$)", "");
     }
 }

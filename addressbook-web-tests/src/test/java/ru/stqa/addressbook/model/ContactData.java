@@ -17,6 +17,7 @@ public class ContactData {
     private String address;
     private String homepage;
     private String group;
+    private String allEmail;
     private String email;
     private String email2;
     private String email3;
@@ -60,6 +61,9 @@ public class ContactData {
     }
     public String getHomepage() {
         return homepage;
+    }
+    public String allEmail() {
+        return allEmail;
     }
     public String getEmail() {
         return email;
@@ -138,12 +142,25 @@ public class ContactData {
         this.group = group;
         return this;
     }
+    public ContactData withAllEmail(String allEmail) {
+        this.allEmail = allEmail;
+        return this;
+    }
     public ContactData withEmail(String email) {
         this.email = email;
         return this;
     }
     public ContactData withEmail2(String email2) {
         this.email2 = email2;
+        return this;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 
@@ -169,15 +186,6 @@ public class ContactData {
                 ", email3='" + email3 + '\'' +
                 ", photo=" + photo +
                 '}';
-    }
-
-    public ContactData withEmail3(String email3) {
-        this.email3 = email3;
-        return this;
-    }
-    public ContactData withPhoto(File photo) {
-        this.photo = photo;
-        return this;
     }
 
     @Override

@@ -25,11 +25,15 @@ public class ContactEmailTests extends TestBase{
     }
 
     @Test
-    public void testContactPhones() {
+    public void testContactEmails() {
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditFrom = app.contact().infoFromEditFrom(contact);
-        assertThat(contact.getEmail(), equalTo(contactInfoFromEditFrom.getEmail()));
-        assertThat(contact.getEmail2(), equalTo(contactInfoFromEditFrom.getEmail2()));
-        assertThat(contact.getEmail3(), equalTo(contactInfoFromEditFrom.getEmail3()));
+        assertThat(contact.getEmail(), equalTo(cleaned(contactInfoFromEditFrom.getEmail())));
+        assertThat(contact.getEmail2(), equalTo(cleaned(contactInfoFromEditFrom.getEmail2())));
+        assertThat(contact.getEmail3(), equalTo(cleaned(contactInfoFromEditFrom.getEmail3())));
+    }
+
+    public static String cleaned(String email) {
+        return email.replaceAll("\\s", "");
     }
 }

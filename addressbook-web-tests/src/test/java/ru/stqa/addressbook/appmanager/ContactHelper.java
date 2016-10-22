@@ -117,7 +117,10 @@ public class ContactHelper extends HelperBase{
             String address = cells.get(3).getText();
             String[] phones = cells.get(5).getText().split("\n");
             String allPhones = cells.get(5).getText();
-            List<String> allEmail = cells.get(3).findElements(By.tagName("a")).stream().map(webElement -> webElement.getText()).collect(Collectors.toList());
+            List<WebElement> allEmail = cells.get(4).findElements(By.tagName("a"));
+            String email1 = allEmail.get(0).getText();
+            String email2 = allEmail.get(1).getText();
+            String email3 = allEmail.get(2).getText();
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("id"));
             ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAllPhone(allPhones);
             contactCashe.add(contact);
@@ -179,7 +182,7 @@ public class ContactHelper extends HelperBase{
                 .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone);
     }
 
-    public ContactData infoFromEditFromAddress(ContactData contact) {
+    public ContactData infoFromEditFrom(ContactData contact) {
         initContactModifycationById(contact.getId());
         String firstName = wd.findElement(By.cssSelector("input[name='firstname']")).getAttribute("value");
         String lastName = wd.findElement(By.cssSelector("input[name='lastname']")).getAttribute("value");
@@ -189,7 +192,7 @@ public class ContactHelper extends HelperBase{
         String email = wd.findElement(By.cssSelector("input[name='email']")).getAttribute("value");
         String email2 = wd.findElement(By.cssSelector("input[name='email2']")).getAttribute("value");
         String email3 = wd.findElement(By.cssSelector("input[name='email3']")).getAttribute("value");
-        String address = wd.findElement(By.cssSelector("input[name='address']")).getAttribute("value");
+        String address = wd.findElement(By.cssSelector("textarea[name='address']")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstName).withLastname(lastName)
                 .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone);

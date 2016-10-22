@@ -5,15 +5,15 @@ repositories {
 }
 
 dependencies {
-    compile 'org.testng:testng:6.9.10'
-    compile 'org.seleniumhq.selenium:selenium-parent:2.53.1'
-    compile 'com.applitools:eyes-selenium-java-jersey1_17-sf2_51_0:2.51'
-    compile 'pl.oakfusion:chromedriver:2.9'
+    compile 'org.testng:testng:6.9.13.6'
+    compile 'org.seleniumhq.selenium:selenium-java:3.0.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'com.beust:jcommander:1.58'
     compile 'com.thoughtworks.xstream:xstream:1.4.9'
     compile 'com.google.code.gson:gson:2.7'
     compile 'ch.qos.logback:logback-classic:1.1.7'
+    compile 'org.seleniumhq.selenium:selenium-chrome-driver:3.0.1'
+    compile 'org.seleniumhq.selenium:selenium-firefox-driver:3.0.1'
 }
 
 task testGroups(type: Test) {

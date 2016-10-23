@@ -84,7 +84,7 @@ public class TestCreationContact extends TestBase{
         File photo = new File("src/test/resources/foto.jpg");
         app.contact().createContact(contact.withPhoto(photo), true);
         Contacts after = app.contact().all();
-        
+
         Assert.assertEquals(after.size(), before.size() + 1);
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt())
                 .withAllPhone(app.contact().mergePhones(contact))

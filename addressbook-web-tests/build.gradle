@@ -26,6 +26,7 @@ task testGroups(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+    systemProperty "file.encoding", "utf-8"
 }
 
 task testContacts(type: Test) {
@@ -38,6 +39,11 @@ task testContacts(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+    systemProperty "file.encoding", "utf-8"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 

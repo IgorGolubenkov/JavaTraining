@@ -19,6 +19,7 @@
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.1.7" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-chrome-driver:3.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-firefox-driver:3.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:6.0.5" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.ant:ant:1.9.7" level="project" />
     <orderEntry type="library" name="Gradle: org.beanshell:bsh:2.0b4" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-edge-driver:3.0.1" level="project" />

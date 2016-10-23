@@ -6,10 +6,13 @@ import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.tests.ContactEmailTests;
+import ru.stqa.addressbook.tests.ContactPhoneTests;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ContactHelper extends HelperBase{
     private final ApplicationManager app;
@@ -47,6 +50,9 @@ public class ContactHelper extends HelperBase{
         type(By.xpath("//input[@name='company']"), contactData.getCompany());
         type(By.xpath("//textarea[@name='address']"), contactData.getAddress());
         type(By.xpath("//input[@name='homepage']"), contactData.getHomepage());
+        type(By.xpath("//input[@name='email']"), contactData.getEmail());
+        type(By.xpath("//input[@name='email2']"), contactData.getEmail2());
+        type(By.xpath("//input[@name='email3']"), contactData.getEmail3());
     }
 
     public void submitContactCreation() {
@@ -104,7 +110,7 @@ public class ContactHelper extends HelperBase{
         return contacts;
     }
 
-    public Contacts all() {
+    public Contacts all() throws InterruptedException {
         if (contactCashe != null) {
             return new Contacts(contactCashe);
         }
@@ -117,10 +123,17 @@ public class ContactHelper extends HelperBase{
             String address = cells.get(3).getText();
             String[] phones = cells.get(5).getText().split("\n");
             String allPhones = cells.get(5).getText();
-            List<WebElement> allEmail = cells.get(4).findElements(By.tagName("a"));
-            String email1 = allEmail.get(0).getText();
-            String email2 = allEmail.get(1).getText();
-            String email3 = allEmail.get(2).getText();
+            String email1 = null;
+            String email2 = null;
+            String email3 = null;
+            try {
+                List<WebElement> allEmail = cells.get(4).findElements(By.tagName("a"));
+                email1 = allEmail.get(0).getText();
+                email2 = allEmail.get(1).getText();
+                email3 = allEmail.get(2).getText();
+            } catch (IndexOutOfBoundsException | NullPointerException exc) {
+                System.out.println(exc);
+            }
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("id"));
             ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
                     .withAllPhone(allPhones).withEmail(email1)
@@ -228,5 +241,22 @@ public class ContactHelper extends HelperBase{
 
     private void openDetailInfoPageContactById(int id) {
         wd.findElement(By.xpath(String.format(String.format("//a[@href='view.php?id=%s']", id)))).click();
+    }
+
+    public static String cleanedPhone(String phone) {
+        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+    }
+
+    public String mergePhones(ContactData contact) {
+        return Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
+                .filter((s -> ! s.equals(""))).map(ContactHelper::cleanedPhone).collect(Collectors.joining("\n"));
+    }
+
+    public static String cleaned(String email) {
+        return email.replaceAll("(^\\s*)|(\\s*$)", "");
+    }
+    public String mergeEmailEditForm(ContactData contact) {
+        return Stream.of(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+                .filter((s -> ! s.equals(""))).map(ContactHelper::cleaned).collect(Collectors.joining("\n"));
     }
 }

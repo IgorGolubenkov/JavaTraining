@@ -1,18 +1,74 @@
 package ru.stqa.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestCreationContact extends TestBase{
+
+    @DataProvider
+    public Iterator<Object[]> validContactsFromCSV() throws IOException {
+        try (BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")))) {
+            List<Object[]> list = new ArrayList<Object[]>();
+            String line = redear.readLine();
+            while (line != null) {
+                String[] split = line.split(";");
+                list.add(new Object[] {new ContactData().withFirstname(split[0]).withLastname(split[1]).withAddress(split[2])});
+                line = redear.readLine();
+            }
+            return list.iterator();
+        }
+    }
+
+    @DataProvider
+    public Iterator<Object[]> validContactsFromXML() throws IOException {
+        BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+        String xml = "";
+        String line = redear.readLine();
+        while (line != null) {
+            xml += line;
+            line = redear.readLine();
+        }
+        XStream xstream = new XStream();
+        xstream.processAnnotations(ContactData.class);
+        List<ContactData> groups = (List<ContactData>) xstream.fromXML(xml);
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    }
+
+    @DataProvider
+    public Iterator<Object[]> validContactsFromJSON() throws IOException {
+        try (BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
+            String json = "";
+            String line = redear.readLine();
+            while (line != null) {
+                json += line;
+                line = redear.readLine();
+            }
+            Gson gson = new Gson();
+            List<ContactData> groups = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+            }.getType());
+            return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+        }
+    }
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -22,18 +78,17 @@ public class TestCreationContact extends TestBase{
         }
     }
 
-    @Test(enabled = true)
-    public void testCreationContact() throws InterruptedException {
+    @Test(dataProvider = "validContactsFromJSON", enabled = true)
+    public void testCreationContact(ContactData contact) throws InterruptedException {
         Contacts before = app.contact().all();
         File photo = new File("src/test/resources/foto.jpg");
-        ContactData contact = new ContactData().withFirstname("test1").withMiddlename("test2").withLastname("test3").withNickname("test4")
-                .withTitle("test4").withCompany("test5").withAddress("test6").withHomepage("test7").withGroup("test254").withPhoto(photo);
-        app.contact().createContact(contact, true);
+        app.contact().createContact(contact.withPhoto(photo), true);
         Contacts after = app.contact().all();
+        
         Assert.assertEquals(after.size(), before.size() + 1);
-
-        //contact.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
-        assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+        assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt())
+                .withAllPhone(app.contact().mergePhones(contact))
+                .removeHomePhone().removeMobilePhone().removeWorkPhone().removePhoto())));
         }
 
     @Test(enabled = false)

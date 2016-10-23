@@ -19,7 +19,7 @@ public class ContactAddressTests extends TestBase{
     }
 
     @Test
-    public void testContactAddress() {
+    public void testContactAddress() throws InterruptedException {
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditFrom = app.contact().infoFromEditFrom(contact);
         assertThat(contact.getAddress(), equalTo(cleaned(contactInfoFromEditFrom.getAddress())));

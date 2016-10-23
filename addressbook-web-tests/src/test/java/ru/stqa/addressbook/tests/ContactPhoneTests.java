@@ -22,7 +22,7 @@ public class ContactPhoneTests extends TestBase{
     }
 
     @Test
-    public void testContactPhones() {
+    public void testContactPhones() throws InterruptedException {
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditFrom = app.contact().infoFromEditFromPhone(contact);
 

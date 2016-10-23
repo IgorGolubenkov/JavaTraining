@@ -182,6 +182,35 @@ public class ContactData {
         return this;
     }
 
+    public ContactData removeHomePhone() {
+        this.homePhone = null;
+        return this;
+    }
+    public ContactData removeMobilePhone() {
+        this.mobilePhone = null;
+        return this;
+    }
+    public ContactData removeWorkPhone() {
+        this.workPhone = null;
+        return this;
+    }
+    public ContactData removeEmail() {
+        this.email = null;
+        return this;
+    }
+    public ContactData removeEmail2() {
+        this.email2 = null;
+        return this;
+    }
+    public ContactData removeEmail3() {
+        this.email3 = null;
+        return this;
+    }
+    public ContactData removePhoto() {
+        this.photo = null;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ContactData{" +

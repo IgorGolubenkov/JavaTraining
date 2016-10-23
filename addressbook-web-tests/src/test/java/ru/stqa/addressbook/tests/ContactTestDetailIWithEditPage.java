@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactTestDetailIWithEditPage extends TestBase{
 
     @Test
-    public void testContactEmails() {
+    public void testContactEmails() throws InterruptedException {
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromDetailPage = app.contact().infoFromDetailPage(contact);
         ContactData contactInfoFromEditFrom = app.contact().infoFromEditFrom(contact);

@@ -1,0 +1,16 @@
+tb: true;pb: true;cb: true;mb: true;
+tb: true;pb: true;cb: false;mb: true;
+tb: true;pb: false;cb: true;mb: true;
+tb: true;pb: false;cb: false;mb: true;
+tb: false;pb: true;cb: true;mb: true;
+tb: false;pb: true;cb: false;mb: true;
+tb: false;pb: false;cb: true;mb: true;
+tb: false;pb: false;cb: false;mb: true;
+tb: true;pb: true;cb: true;mb: true;
+tb: true;pb: true;cb: false;mb: true;
+tb: true;pb: false;cb: true;mb: true;
+tb: true;pb: false;cb: false;mb: true;
+tb: false;pb: true;cb: true;mb: true;
+tb: false;pb: true;cb: false;mb: true;
+tb: false;pb: false;cb: true;mb: true;
+tb: false;pb: false;cb: false;mb: true;

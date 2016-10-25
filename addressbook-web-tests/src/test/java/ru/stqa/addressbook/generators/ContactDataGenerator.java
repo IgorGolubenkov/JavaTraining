@@ -15,10 +15,13 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ContactDataGenerator {
 
-    @Parameter(names = "-c", description = "Contact count")  // argument -c 10 -f src/test/resources/contacts.json -d json
+
+
+    @Parameter(names = "-c", description = "Contact count")
     public int count;
 
     @Parameter(names = "-f", description = "Target file")
@@ -97,3 +100,5 @@ public class ContactDataGenerator {
         return contacts;
     }
 }
+
+// argument -c 10 -f src/test/resources/contacts.json -d json

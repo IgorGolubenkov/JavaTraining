@@ -44,10 +44,18 @@ public class ApplicationManager {
                     DriverPath + "/iedriver/IEDriverServer.exe");
             wd = new InternetExplorerDriver();
         }
-        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        wd.get(properties.getProperty("web.besUrl"));
+//        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+//        wd.get(properties.getProperty("web.besUrl"));
     }
     public void stop() {
         wd.quit();
+    }
+
+    public HTTPSession httpSession() {
+        return new HTTPSession(this);
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 }

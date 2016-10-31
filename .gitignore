@@ -24,3 +24,7 @@ sandbox/src/main/java/ru/stqa/pft/sandbox/Combinatorica.java
 .idea/libraries/Gradle__com_google_code_findbugs_jsr305_1_3_9.xml
 .idea/libraries/Gradle__org_subethamail_subethasmtp_3_1_7.xml
 .idea/modules/mantis-tests_main.iml
+.idea/libraries/Gradle__javax_activation_activation_1_1_1.xml
+.idea/libraries/Gradle__ru_lanwen_verbalregex_java_verbal_expressions_1_4.xml
+.idea/modules/mantis-tests_main.iml
+.idea/modules/mantis-tests_test.iml

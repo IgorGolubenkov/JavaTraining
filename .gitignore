@@ -18,3 +18,7 @@ addressbook-web-tests/src/test/java/ru/stqa/addressbook/TestOne.java
 sandbox/src/main/java/ru/stqa/pft/sandbox/Equality.java
 sandbox/src/main/java/ru/stqa/pft/sandbox/Combinatorica.java
 *.log
+.idea/libraries/Gradle__commons_net_commons_net_3_5.xml
+.idea/libraries/Gradle__com_google_code_findbugs_jsr305_1_3_9.xml
+.idea/libraries/Gradle__javax_mail_mail_1_4_4.xml
+.idea/libraries/Gradle__com_google_code_findbugs_jsr305_1_3_9.xml

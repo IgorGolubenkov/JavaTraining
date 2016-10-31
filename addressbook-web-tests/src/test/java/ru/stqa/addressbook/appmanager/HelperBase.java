@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 
 public class HelperBase {
+
     protected WebDriver wd;
 
     public HelperBase(WebDriver wd) {

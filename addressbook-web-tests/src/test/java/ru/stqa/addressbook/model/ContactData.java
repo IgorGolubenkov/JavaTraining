@@ -1,38 +1,80 @@
 package ru.stqa.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+
+    @Id
+    @Column(name = "id")
     private int id;
+
     @Expose
     private String firstname;
+
     private String middlename;
+
     @Expose
     private String lastname;
+
     private String nickname;
+
+    @Transient
     private String allPhone;
+
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+
     @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
+
     @Expose
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
+
     private String title;
+
     private String company;
+
     @Expose
+    @Type(type = "text")
     private String address;
+
+    @Type(type = "text")
     private String homepage;
+
+    @Transient
     private String group;
+
+    @Transient
     private String allEmail;
+
     @Expose
+    @Type(type = "text")
     private String email;
+
     @Expose
+    @Type(type = "text")
     private String email2;
+
     @Expose
+    @Type(type = "text")
     private String email3;
-    private File photo;
+
+    @Type(type = "text")
+    private String photo;
+
+    @Transient
     private String allInfo;
 
     public int getId() {
@@ -90,7 +132,7 @@ public class ContactData {
         return group;
     }
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
     public String getAllInfo(String allInfo) {
         return this.allInfo;
@@ -174,7 +216,7 @@ public class ContactData {
         return this;
     }
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
     public ContactData withAllInfo(String allInfo) {

@@ -1,6 +1,5 @@
 package ru.stqa.addressbook.tests;
 
-import org.apache.bcel.classfile.Method;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.addressbook.appmanager.ApplicationManager;
 
-import java.lang.reflect.Array;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public class TestBase {
@@ -36,7 +35,7 @@ public class TestBase {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void  logTestStop(Method method) {
+    public void logTestStop(Method method) {
         logger.info(String.format("Stop test %s", method.getName()));
 
     }

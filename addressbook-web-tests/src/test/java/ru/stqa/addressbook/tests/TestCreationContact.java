@@ -27,7 +27,8 @@ public class TestCreationContact extends TestBase{
 
     @DataProvider
     public Iterator<Object[]> validContactsFromCSV() throws IOException {
-        try (BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")))) {
+        try (BufferedReader redear = new BufferedReader(new FileReader
+                (new File("src/test/resources/TestData/contacts/contacts.csv")))) {
             List<Object[]> list = new ArrayList<Object[]>();
             String line = redear.readLine();
             while (line != null) {
@@ -41,7 +42,8 @@ public class TestCreationContact extends TestBase{
 
     @DataProvider
     public Iterator<Object[]> validContactsFromXML() throws IOException {
-        BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+        BufferedReader redear = new BufferedReader(new FileReader
+                (new File("src/test/resources/TestData/contacts/contacts.xml")));
         String xml = "";
         String line = redear.readLine();
         while (line != null) {
@@ -56,7 +58,8 @@ public class TestCreationContact extends TestBase{
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJSON() throws IOException {
-        try (BufferedReader redear = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
+        try (BufferedReader redear = new BufferedReader(new FileReader
+                (new File("src/test/resources/TestData/contacts/contacts.json")))) {
             String json = "";
             String line = redear.readLine();
             while (line != null) {

@@ -22,6 +22,7 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
     private String browser;
+    private DbHelper bdHelper;
 
     public ApplicationManager(String browser)  {
         this.browser = browser;
@@ -32,9 +33,9 @@ public class ApplicationManager {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
+        bdHelper = new DbHelper();
+
         String DriverPath = "src/ExternalJars";
-        // рабочая директория "C:/AutomationTesting/JavaTraining/addressbook-web-tests/src/ExternalJars"
-        // домашная директория "D:/Training Java/JavaTraining/addressbook-web-tests/src/ExternalJars"
         if (browser.equals(BrowserType.CHROME)) {
             System.setProperty("webdriver.chrome.driver",
                     DriverPath + "/chromedriver_win/chromedriver.exe");
@@ -50,13 +51,16 @@ public class ApplicationManager {
                     DriverPath + "/iedriver/IEDriverServer.exe");
             wd = new InternetExplorerDriver();
         }
+
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().getCookies();
         wd.get(properties.getProperty("web.besUrl"));
+
         navigationHelper = new Navigationhelper(this);
         sessionHelper = new SessionHelper(wd);
         groupHelper = new GroupHelper(this);
         contactHelper = new ContactHelper(this);
+
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
     }
     public void stop() {
@@ -70,5 +74,8 @@ public class ApplicationManager {
     }
     public ContactHelper contact() {
         return contactHelper;
+    }
+    public DbHelper db() {
+        return bdHelper;
     }
 }

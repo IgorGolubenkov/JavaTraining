@@ -71,6 +71,7 @@ public class ContactData {
     @Type(type = "text")
     private String email3;
 
+    @Transient
     @Type(type = "text")
     private String photo;
 
@@ -304,7 +305,6 @@ public class ContactData {
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
         if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
-        if (photo != null ? !photo.equals(that.photo) : that.photo != null) return false;
         return allInfo != null ? allInfo.equals(that.allInfo) : that.allInfo == null;
 
     }
@@ -329,7 +329,6 @@ public class ContactData {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (email2 != null ? email2.hashCode() : 0);
         result = 31 * result + (email3 != null ? email3.hashCode() : 0);
-        result = 31 * result + (photo != null ? photo.hashCode() : 0);
         result = 31 * result + (allInfo != null ? allInfo.hashCode() : 0);
         return result;
     }

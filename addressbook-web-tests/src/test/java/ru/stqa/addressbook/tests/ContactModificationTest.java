@@ -1,15 +1,43 @@
 package ru.stqa.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTest extends TestBase{
+
+    @DataProvider
+    public Iterator<Object[]> modifyContactsFromJSON() throws IOException {
+        try (BufferedReader readear = new BufferedReader(new FileReader
+                (new File("src/test/resources/TestData/contacts/contacts_modify.json")))) {
+            String json = "";
+            String line = readear.readLine();
+            while (line != null) {
+                json += line;
+                line = readear.readLine();
+            }
+            Gson gson = new Gson();
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+            }.getType());
+            return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+        }
+    }
 
     @BeforeMethod
     public void ensurePreconditions() throws InterruptedException {
@@ -21,19 +49,15 @@ public class ContactModificationTest extends TestBase{
         }
     }
 
-    @Test(enabled = true)
-    public void testContactModification() throws InterruptedException {
-        Contacts before = app.contact().all();
+    @Test(dataProvider = "modifyContactsFromJSON")
+    public void testContactModification(ContactData contact) throws InterruptedException {
+
+        Contacts before = app.db().contacts();
         ContactData modifyConctacts = before.iterator().next();
-        ContactData contact = new ContactData().withId(modifyConctacts.getId()).withFirstname("edit test1").withMiddlename("edit test2")
-                .withLastname("edit test3").withNickname("edit test4").withTitle("edit test5").withCompany("edit test6").withAddress("edit test7")
-                .withHomepage("edit test8");
-        app.contact().modify(contact);
-        Contacts after = app.contact().all();
-        assertEquals(after.size(), before.size());
-        //Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-        //before.sort(byId);
-        //after.sort(byId);
-        assertThat(after, equalTo(before.withOut(modifyConctacts).withAdded(contact)));
+        ContactData contactData = contact.withId(modifyConctacts.getId());
+        app.contact().modify(contactData);
+        assertEquals(app.contact().count(), before.size()); // UI hash
+        Contacts after = app.db().contacts();
+        assertThat(after, equalTo(before.withOut(modifyConctacts).withAdded(contactData.removePhoto())));
     }
 }

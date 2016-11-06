@@ -1,0 +1,20 @@
+[
+  {
+    "firstname": "firstName: modify",
+    "lastname": "lastName: modify",
+    "middlename": "middlename modify",
+    "nickname": "nickname modify",
+    "title": "title modify",
+    "company": "company modify",
+    "homePhone": "+74991104050",
+    "mobilePhone": "+79001102030",
+    "workPhone": "+74951102030",
+    "address": "country Russia city Moscow, Lenina street apartment modify apartment modify",
+    "email": "testmodify@testmodify.testmodify",
+    "email2": "2testmodify@2testmodify.2testmodify",
+    "email3": "3testmodify@3testmodify.3testmodify",
+    "homepage": "homepage",
+    "photo": "src/test/resources/foto.jpg"
+
+  }
+]

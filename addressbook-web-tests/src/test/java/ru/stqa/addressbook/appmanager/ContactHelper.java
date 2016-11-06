@@ -148,7 +148,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void selectedToById(int id) {
-        wd.findElement(By.xpath(String.format("//a[@href='edit.php?id='%s']", id))).click();
+        wd.findElement(By.xpath(String.format("//a[@href='edit.php?id=%s']", id))).click();
     }
 
     public void modify(ContactData contact) {
@@ -258,5 +258,9 @@ public class ContactHelper extends HelperBase{
     public String mergeEmailEditForm(ContactData contact) {
         return Stream.of(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
                 .filter((s -> ! s.equals(""))).map(ContactHelper::cleaned).collect(Collectors.joining("\n"));
+    }
+
+    public int count() {
+        return wd.findElements(By.cssSelector("tr[name='entry']")).size();
     }
 }

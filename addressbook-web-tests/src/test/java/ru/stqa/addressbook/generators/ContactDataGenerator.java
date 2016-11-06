@@ -86,6 +86,11 @@ public class ContactDataGenerator {
         for (int i = 0; i < count; i++) {
             String firstName = String.format("firstName: %s", i);
             String lastName = String.format("lastName: %s", i);
+            String middlename = String.format("middlename: %s", i);
+            String nickname = String.format("nickname: %s", i);
+            String title = String.format("title: %s", i);
+            String company = String.format("company: %s", i);
+            String homepage = String.format("http://homepage%s.org", i);
             String address = String.format("country Russia city Moscow, Lenina street apartment %s apartment %s", i, i);
             String email = String.format("test%s@test%s.test%s", i, i, i);
             String email2 = String.format("2test%s@2test%s.2test%s", i, i, i);
@@ -95,7 +100,8 @@ public class ContactDataGenerator {
             String workPhone = String.format("+749511%s2%s3%s", i, i, i);
             contacts.add(new ContactData().withFirstname(firstName).withLastname(lastName)
                     .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone).withEmail(email)
-                    .withEmail2(email2).withEmail3(email3).withAddress(address));
+                    .withEmail2(email2).withEmail3(email3).withAddress(address).withNickname(nickname)
+                    .withMiddlename(middlename).withTitle(title).withCompany(company).withHomepage(homepage));
         }
         return contacts;
     }

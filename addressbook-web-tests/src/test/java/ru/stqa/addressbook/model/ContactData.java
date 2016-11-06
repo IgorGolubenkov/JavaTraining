@@ -17,11 +17,13 @@ public class ContactData {
     @Expose
     private String firstname;
 
+    @Expose
     private String middlename;
 
     @Expose
     private String lastname;
 
+    @Expose
     private String nickname;
 
     @Transient
@@ -42,14 +44,17 @@ public class ContactData {
     @Type(type = "text")
     private String workPhone;
 
+    @Expose
     private String title;
 
+    @Expose
     private String company;
 
     @Expose
     @Type(type = "text")
     private String address;
 
+    @Expose
     @Type(type = "text")
     private String homepage;
 

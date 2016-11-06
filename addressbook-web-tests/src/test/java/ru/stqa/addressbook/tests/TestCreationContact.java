@@ -81,17 +81,23 @@ public class TestCreationContact extends TestBase{
         }
     }
 
-    @Test(dataProvider = "validContactsFromJSON", enabled = true)
+    @Test(dataProvider = "validContactsFromJSON")
     public void testCreationContact(ContactData contact) throws InterruptedException {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         File photo = new File("src/test/resources/foto.jpg");
         app.contact().createContact(contact.withPhoto(photo), true);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
 
-        Assert.assertEquals(after.size(), before.size() + 1);
-        assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt())
-                .withAllPhone(app.contact().mergePhones(contact))
-                .removeHomePhone().removeMobilePhone().removeWorkPhone().removePhoto())));
+        Assert.assertEquals(app.contact().count(), before.size() + 1);
+
+        assertThat(after, equalTo(before.withAdded(contact.withId(after.stream()
+                .mapToInt((c) -> c.getId()).max().getAsInt()).removePhoto())));
+
+
+//        assertThat(after, equalTo(before.withAdded(contact     сравнение с формой редактирвоания
+//                .withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt())
+//                .withAllPhone(app.contact().mergePhones(contact))
+//                .removeHomePhone().removeMobilePhone().removeWorkPhone().removePhoto())));
         }
 
     @Test(enabled = false)

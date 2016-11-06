@@ -4,10 +4,13 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.tests.TestBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ContactHelper extends HelperBase{
+
+    Logger logger = LoggerFactory.getLogger(ContactHelper.class);
     private final ApplicationManager app;
 
     private Contacts contactCashe = null;
@@ -25,7 +30,8 @@ public class ContactHelper extends HelperBase{
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
-        if (creation) {
+        String contactGroup = contactData.getGroup();
+        if (creation & contactGroup != null) {
             try {
                 new Select(wd.findElement(By.xpath("//select[@name='new_group']"))).selectByVisibleText(contactData.getGroup());
             } catch (Exception exc) {
@@ -35,6 +41,8 @@ public class ContactHelper extends HelperBase{
                 app.goTo().goToHomePage();
                 app.goTo().goToAddandEditContactPage();
             }
+        } else if (contactGroup == null) {
+            logger.info(String.format("Для контакта передана группа: %s", contactGroup));
         } else {
             Assert.assertFalse(isElementPresent(By.xpath("//select[@name='new_group']")));
         }

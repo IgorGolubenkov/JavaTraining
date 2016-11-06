@@ -8,6 +8,7 @@ import ru.stqa.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTest extends TestBase{
 
@@ -23,11 +24,12 @@ public class ContactDeletionTest extends TestBase{
 
     @Test(enabled = true)
     public void testContactDeletion() throws InterruptedException {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
-        Contacts after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
+        Contacts after = app.db().contacts();
+
+        assertEquals(app.contact().count(), before.size() - 1); // UI hash
         assertThat(after, equalTo(before.withOut(deletedContact)));
     }
 }

@@ -1,13 +1,13 @@
 package ru.stqa.addressbook.appmanager;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
-import ru.stqa.addressbook.tests.ContactEmailTests;
-import ru.stqa.addressbook.tests.ContactPhoneTests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,7 +164,7 @@ public class ContactHelper extends HelperBase{
     }
 
     private void selectedForDeletedToById(int id) {
-        wd.findElement(By.xpath(String.format("input[id='%s']", id))).click();
+        wd.findElement(By.cssSelector(String.format("input[id='%s']", id))).click();
     }
 
     public void delete(ContactData contact) {

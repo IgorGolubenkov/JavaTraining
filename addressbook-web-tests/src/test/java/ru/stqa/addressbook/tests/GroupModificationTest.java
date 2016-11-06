@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
@@ -56,9 +57,7 @@ public class GroupModificationTest extends TestBase{
     public void testGroupModification(GroupData group) {
 
         Groups before = app.db().groups();
-
 //        Groups before = app.group().all();  // UI
-
         GroupData modifyGroup = before.iterator().next();
         GroupData groupData = group.withId(modifyGroup.getId());
 

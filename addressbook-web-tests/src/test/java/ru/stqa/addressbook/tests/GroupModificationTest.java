@@ -71,6 +71,7 @@ public class GroupModificationTest extends TestBase{
 //        Groups after = app.group().all();   //UI
 
         assertThat(after, equalTo(before.withOut(modifyGroup).withAdded(group)));
-    }
 
+        verifyGroupListInUI();
+    }
 }

@@ -1,6 +1,8 @@
 <configuration>
 
-<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+    <property name="LOG_HOME" value="c:/logs/" />
+
 
 <appender name="FILE" class="ch.qos.logback.core.FileAppender">
     <file>test-${bySecond}.log</file>

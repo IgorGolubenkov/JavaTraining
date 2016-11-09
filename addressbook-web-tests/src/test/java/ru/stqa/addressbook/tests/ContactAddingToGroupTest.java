@@ -66,8 +66,9 @@ public class ContactAddingToGroupTest extends TestBase {
             app.group().create(ensureGroup);
             app.goTo().goToHomePage();
         }
-        if (contacts.stream().anyMatch(contactData -> contactData.getGroups()
-                .stream().anyMatch(groupData -> Objects.equals(groupData.getName(), ensureGroup.getName())))){
+        if (contacts.stream().filter(contactData -> contactData.getId() == ensureContact.getId())
+                .findFirst().get().getGroups().stream()
+                .anyMatch(groupData -> groupData.getName().equals(ensureGroup.getName()))){
             app.contact().removeContactFromGroup(ensureContact, ensureGroup);
             app.contact().returnAllContactsPage();
         }

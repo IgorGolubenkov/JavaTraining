@@ -13,13 +13,13 @@ public class RegistrationHelper extends HelperBase{
         wd.get(app.getProperty("web.mantis.besUrl") + "signup_page.php");
         type(By.cssSelector("input[name='username']"), usename);
         type(By.cssSelector("input[name='email']"), email);
-        clickSearch(By.cssSelector("input[value='Signup']"));
+        clickSearch(By.xpath("//input[@type='submit']"));
     }
 
     public void finish(String confirmationLink, String password) {
         wd.get(confirmationLink);
         type(By.name("password"), password);
         type(By.name("password_confirm"), password);
-        clickSearch(By.cssSelector("input[value='Update_User']"));
+        clickSearch(By.cssSelector("//input[@type='submit']"));
     }
 }

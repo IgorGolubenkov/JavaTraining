@@ -3,6 +3,7 @@ package ru.stqa.addressbook.appmanager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,6 @@ import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
-import ru.stqa.addressbook.tests.TestBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,21 +30,25 @@ public class ContactHelper extends HelperBase{
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
-        String contactGroup = contactData.getGroup();
-        if (creation & contactGroup != null) {
-            try {
-                new Select(wd.findElement(By.xpath("//select[@name='new_group']"))).selectByVisibleText(contactData.getGroup());
-            } catch (Exception exc) {
-                GroupData groupData = new GroupData().withName("test group");
-                System.out.println(exc);
-                initCreationGroup(groupData);
-                app.goTo().goToHomePage();
-                app.goTo().goToAddandEditContactPage();
+        if (creation) {
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                try {
+                    new Select(wd.findElement(By.xpath("//select[@name='new_group']")))
+                            .selectByVisibleText(contactData.getGroups().iterator().next().getName());
+                } catch (Exception exc) {
+                    GroupData groupData = new GroupData().withName("test group");
+                    System.out.println(exc);
+                    initCreationGroup(groupData);
+                    app.goTo().goToHomePage();
+                    app.goTo().goToAddandEditContactPage();
+                }
+            } else if (contactData.getGroups().size() == 0) {
+                logger.info(String.format("Для контакта передана группа: null"));
+            } else {
+                Assert.assertFalse(isElementPresent(By.xpath("//select[@name='new_group']")));
             }
-        } else if (contactGroup == null) {
-            logger.info(String.format("Для контакта передана группа: %s", contactGroup));
-        } else {
-            Assert.assertFalse(isElementPresent(By.xpath("//select[@name='new_group']")));
+
         }
         type(By.xpath("//input[@name='firstname']"), contactData.getFirstname());
         type(By.xpath("//input[@name='middlename']"), contactData.getMiddlename());
@@ -171,7 +175,7 @@ public class ContactHelper extends HelperBase{
         wd.findElements(By.xpath("//input[@name='selected[]']")).get(index).click();  //wd.findElementsByXPath("//input[@name='selected[]']");
     }
 
-    private void selectedForDeletedToById(int id) {
+    public void selectedForDeletedToById(int id) {
         wd.findElement(By.cssSelector(String.format("input[id='%s']", id))).click();
     }
 
@@ -270,5 +274,35 @@ public class ContactHelper extends HelperBase{
 
     public int count() {
         return wd.findElements(By.cssSelector("tr[name='entry']")).size();
+    }
+
+    public void selectGroupToByNameForConatct(GroupData group) {
+        new Select(wd.findElement(By.xpath("//select[@name='to_group']")))
+                .selectByVisibleText(group.getName());
+    }
+
+    public void addingContactInGroup(ContactData contact, GroupData group) {
+        selectedForDeletedToById(contact.getId());
+        selectGroupToByNameForConatct(group);
+        wd.findElement(By.xpath("//input[@type='submit']")).click();
+        app.goTo().goToHomePage();
+    }
+
+    public void selectGroupPageWithContact(GroupData group) {
+        new Select(wd.findElement(By.xpath("//select[@name='group']")))
+                .selectByVisibleText(group.getName());
+    }
+
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        selectGroupPageWithContact(group);
+        By xpath = By.xpath(String.format("//input[@value='Remove from \"%s\"']", group.getName()));
+        initWait(5).until(ExpectedConditions.elementToBeClickable(xpath));
+        selectedForDeletedToById(contact.getId());
+        initWait(5).until(ExpectedConditions.elementToBeClickable(xpath)).click();
+        app.goTo().goToHomePage();
+    }
+
+    public void returnAllContactsPage() {
+        new Select(wd.findElement(By.xpath("//select[@name='group']"))).selectByVisibleText("[all]");
     }
 }

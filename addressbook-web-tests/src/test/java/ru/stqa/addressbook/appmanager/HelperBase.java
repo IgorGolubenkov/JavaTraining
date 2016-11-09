@@ -2,6 +2,7 @@ package ru.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 
@@ -61,4 +62,8 @@ public class HelperBase {
         }
     }
 
+    public WebDriverWait initWait(int seconds) {
+        WebDriverWait wait = new WebDriverWait(wd, seconds);
+        return wait;
+    }
 }

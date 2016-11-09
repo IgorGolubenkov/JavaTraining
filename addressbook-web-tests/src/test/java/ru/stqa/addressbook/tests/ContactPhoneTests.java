@@ -16,7 +16,7 @@ public class ContactPhoneTests extends TestBase{
     public void ensurePreconditions() throws InterruptedException {
         app.goTo().goToHomePage();
         if (! app.contact().isThereAContact()) {
-            app.contact().createContact(new ContactData().withFirstname("test1").withLastname("test3").withGroup("test group")
+            app.contact().createContact(new ContactData().withFirstname("test1").withLastname("test3")  //.withGroup("test group")
                     .withHomePhone("+79182738").withMobilePhone("+7913453638").withWorkPhone("+723498942"), false);
         }
     }

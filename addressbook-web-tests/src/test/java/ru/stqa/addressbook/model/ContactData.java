@@ -5,6 +5,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -59,9 +61,6 @@ public class ContactData {
     private String homepage;
 
     @Transient
-    private String group;
-
-    @Transient
     private String allEmail;
 
     @Expose
@@ -82,6 +81,11 @@ public class ContactData {
 
     @Transient
     private String allInfo;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public int getId() {
         return id;
@@ -134,16 +138,15 @@ public class ContactData {
     public String getEmail3() {
         return email3;
     }
-    public String getGroup() {
-        return group;
-    }
     public File getPhoto() {
         return new File(photo);
     }
     public String getAllInfo(String allInfo) {
         return this.allInfo;
     }
-
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -201,10 +204,6 @@ public class ContactData {
         this.homepage = homepage;
         return this;
     }
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
     public ContactData withAllEmail(String allEmail) {
         this.allEmail = allEmail;
         return this;
@@ -227,6 +226,10 @@ public class ContactData {
     }
     public ContactData withAllInfo(String allInfo) {
         this.allInfo = allInfo;
+        return this;
+    }
+    public ContactData withGroup(Set<GroupData> groups) {
+        this.groups = groups;
         return this;
     }
 
@@ -275,13 +278,13 @@ public class ContactData {
                 ", company='" + company + '\'' +
                 ", address='" + address + '\'' +
                 ", homepage='" + homepage + '\'' +
-                ", group='" + group + '\'' +
                 ", allEmail='" + allEmail + '\'' +
                 ", email='" + email + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
-                ", photo=" + photo +
+                ", photo='" + photo + '\'' +
                 ", allInfo='" + allInfo + '\'' +
+                ", groups=" + groups +
                 '}';
     }
 
@@ -305,12 +308,13 @@ public class ContactData {
         if (company != null ? !company.equals(that.company) : that.company != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
-        if (group != null ? !group.equals(that.group) : that.group != null) return false;
         if (allEmail != null ? !allEmail.equals(that.allEmail) : that.allEmail != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
         if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
-        return allInfo != null ? allInfo.equals(that.allInfo) : that.allInfo == null;
+        if (photo != null ? !photo.equals(that.photo) : that.photo != null) return false;
+        if (allInfo != null ? !allInfo.equals(that.allInfo) : that.allInfo != null) return false;
+        return groups != null ? groups.equals(that.groups) : that.groups == null;
 
     }
 
@@ -329,13 +333,19 @@ public class ContactData {
         result = 31 * result + (company != null ? company.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
-        result = 31 * result + (group != null ? group.hashCode() : 0);
         result = 31 * result + (allEmail != null ? allEmail.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (email2 != null ? email2.hashCode() : 0);
         result = 31 * result + (email3 != null ? email3.hashCode() : 0);
+        result = 31 * result + (photo != null ? photo.hashCode() : 0);
         result = 31 * result + (allInfo != null ? allInfo.hashCode() : 0);
+        result = 31 * result + (groups != null ? groups.hashCode() : 0);
         return result;
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
     }
 }
 

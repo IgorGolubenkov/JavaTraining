@@ -45,7 +45,7 @@ public class ContactModificationTest extends TestBase{
         if (! app.contact().isThereAContact()) {
             app.contact().createContact(new ContactData().withFirstname("test1").withMiddlename("test2").withLastname("test3")
                     .withNickname("test4").withTitle("test4").withCompany("test5").withAddress("test6")
-                    .withHomepage("test7").withGroup("test group"), true);
+                    .withHomepage("test7"), true);  //.withGroup("test group")
         }
     }
 

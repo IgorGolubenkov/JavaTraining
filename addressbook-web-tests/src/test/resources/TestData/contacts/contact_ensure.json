@@ -1,0 +1,24 @@
+[
+  {
+    "firstname": "firstName: ensure",
+    "lastname": "lastName: ensure",
+    "middlename": "middlename ensure",
+    "nickname": "nickname ensure",
+    "title": "title ensure",
+    "company": "company ensure",
+    "homePhone": "+74991104050",
+    "mobilePhone": "+79001102030",
+    "workPhone": "+74951102030",
+    "address": "country Russia city Moscow, Lenina street apartment modify apartment modify",
+    "email": "ensure@testensure.testensure",
+    "email2": "2ensure@2testensure.2testensure",
+    "email3": "3ensure@3testensure.3testensure",
+    "homepage": "homepage",
+    "photo": "src/test/resources/foto.jpg",
+    "groups": [{
+      "name": "name ensure ",
+      "header": "header ensure",
+      "footer": "footer ensure"
+    }]
+  }
+]

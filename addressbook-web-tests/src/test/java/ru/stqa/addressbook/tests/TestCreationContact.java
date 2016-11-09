@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -83,9 +84,11 @@ public class TestCreationContact extends TestBase{
 
     @Test(dataProvider = "validContactsFromJSON")
     public void testCreationContact(ContactData contact) throws InterruptedException {
+        Groups groups = app.db().groups();
         Contacts before = app.db().contacts();
-        File photo = new File("src/test/resources/foto.jpg");
-        app.contact().createContact(contact.withPhoto(photo), true);
+        ContactData newContact = contact.withPhoto(new File("src/test/resources/foto.jpg"))
+                .inGroup(groups.iterator().next());
+        app.contact().createContact(newContact, true);
         Contacts after = app.db().contacts();
 
         Assert.assertEquals(app.contact().count(), before.size() + 1);

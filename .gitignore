@@ -28,3 +28,4 @@ sandbox/src/main/java/ru/stqa/pft/sandbox/Combinatorica.java
 .idea/libraries/Gradle__ru_lanwen_verbalregex_java_verbal_expressions_1_4.xml
 .idea/modules/mantis-tests_main.iml
 .idea/modules/mantis-tests_test.iml
+.idea/modules/addressbook-web-tests_test.iml

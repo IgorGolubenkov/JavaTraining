@@ -7,6 +7,7 @@ import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class TestBase {
 
@@ -16,11 +17,15 @@ public class TestBase {
     @BeforeSuite
     public void setUp() throws Exception {
         app.init();
-        app.ftp().upload(new File("src/test/resources/config_inc.php"), "config/config_inc.php", "config/config_inc.php.backup");
+        if (Objects.equals(app.getProperty("ftp.filezilla"), "true")) {
+            app.ftp().upload(new File("src/test/resources/config_inc.php"), "config/config_inc.php", "config/config_inc.php.backup");
+        }
     }
     @AfterSuite(alwaysRun = true)
     public void tearDown() throws IOException {
-        app.ftp().restore("config_inc.php.back", "config_inc.php");
+        if (Objects.equals(app.getProperty("ftp.filezilla"), "true")) {
+            app.ftp().restore("config_inc.php.back", "config_inc.php");
+        }
         app.stop();
     }
 }

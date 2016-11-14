@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.util.EntityUtils;
+import ru.stqa.pft.mantis.model.UserData;
 
 public class HTTPSession {
 
@@ -26,17 +27,17 @@ public class HTTPSession {
         httpClient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
     }
 
-    public boolean login(String username, String password) throws IOException {
+    public boolean login(UserData user) throws IOException {
         HttpPost post = new HttpPost(app.getProperty("web.mantis.besUrl") + "/login.php");
         List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("username", user.getUsername()));
+        params.add(new BasicNameValuePair("password", user.getPassword()));
         params.add(new BasicNameValuePair("secure_session", "on"));
         params.add(new BasicNameValuePair("return", "index.php"));
         post.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = httpClient.execute(post);
         String body = getTextFrom(response);
-        return body.contains(String.format("<span id=\"logged-in-user\">%s</span>", username));
+        return body.contains(String.format("<span id=\"logged-in-user\">%s</span>", user.getUsername()));
     }
 
     private String getTextFrom(CloseableHttpResponse response) throws IOException {

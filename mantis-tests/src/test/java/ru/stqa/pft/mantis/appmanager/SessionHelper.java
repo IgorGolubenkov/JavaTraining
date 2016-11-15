@@ -34,4 +34,8 @@ public class SessionHelper extends HelperBase{
                 .stream().filter(webElement -> Objects.equals(webElement.getText(), user.getUsername())).findFirst().get().click();
 
     }
+
+    public void resetPassowrd() {
+        wd.findElement(By.xpath("//form[@id='manage-user-reset-form']//input[@class='button']")).click();
+    }
 }

@@ -15,7 +15,7 @@ public class UserData {
         return this;
     }
     public UserData withEmail(String email) {
-        this.password = email;
+        this.email = email;
         return this;
     }
 

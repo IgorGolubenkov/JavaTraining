@@ -29,3 +29,7 @@ sandbox/src/main/java/ru/stqa/pft/sandbox/Combinatorica.java
 .idea/modules/mantis-tests_main.iml
 .idea/modules/mantis-tests_test.iml
 .idea/modules/addressbook-web-tests_test.iml
+.idea/dataSources.local.xml
+.idea/modules/addressbook-web-tests_test.iml
+.idea/dataSources.xml
+.idea/modules/addressbook-web-tests_test.iml

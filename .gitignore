@@ -33,3 +33,6 @@ sandbox/src/main/java/ru/stqa/pft/sandbox/Combinatorica.java
 .idea/modules/addressbook-web-tests_test.iml
 .idea/dataSources.xml
 .idea/modules/addressbook-web-tests_test.iml
+*.iml
+.idea/libraries/Gradle__com_google_code_gson_gson_2_8_0.xml
+.idea/modules/mantis-tests_test.iml

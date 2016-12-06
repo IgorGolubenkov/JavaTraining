@@ -14,11 +14,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-=======
-import org.apache.http.util.EntityUtils;
 import ru.stqa.pft.mantis.model.UserData;
->>>>>>> origin/master
 
 public class HTTPSession {
 

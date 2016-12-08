@@ -1,0 +1,37 @@
+{
+  "features" : [ {
+    "title" : "Without feature",
+    "statistic" : {
+      "total" : 1,
+      "passed" : 0,
+      "pending" : 0,
+      "canceled" : 1,
+      "failed" : 0,
+      "broken" : 0
+    },
+    "stories" : [ {
+      "uid" : "885a5a5295f348f3",
+      "title" : "Without story",
+      "statistic" : {
+        "total" : 1,
+        "passed" : 0,
+        "pending" : 0,
+        "canceled" : 1,
+        "failed" : 0,
+        "broken" : 0
+      },
+      "testCases" : [ {
+        "uid" : "a953370b18788348",
+        "name" : "testGroupModification[GroupData{id=0, name='name edit', header='header edit', footer='footer edit'}]",
+        "title" : "Test group modification [GroupData{id=0, name='name edit', header='header edit', footer='footer edit'}]",
+        "time" : {
+          "start" : 1481218525601,
+          "stop" : 1481218525608,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "CANCELED"
+      } ]
+    } ]
+  } ]
+}

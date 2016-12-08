@@ -1,0 +1,20 @@
+{
+  "hosts" : [ {
+    "title" : "default",
+    "threads" : [ {
+      "title" : "default",
+      "testCases" : [ {
+        "uid" : "a953370b18788348",
+        "name" : "testGroupModification[GroupData{id=0, name='name edit', header='header edit', footer='footer edit'}]",
+        "title" : "Test group modification [GroupData{id=0, name='name edit', header='header edit', footer='footer edit'}]",
+        "time" : {
+          "start" : 1481218525601,
+          "stop" : 1481218525608,
+          "duration" : 7
+        },
+        "severity" : "NORMAL",
+        "status" : "CANCELED"
+      } ]
+    } ]
+  } ]
+}

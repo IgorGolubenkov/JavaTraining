@@ -1,6 +1,8 @@
 package ru.stqa.addressbook.appmanager;
 
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -87,5 +89,9 @@ public class ApplicationManager {
     }
     public DbHelper db() {
         return bdHelper;
+    }
+
+    public byte[] takeScreenShot() {
+        return ((TakesScreenshot) wd).getScreenshotAs(OutputType.BYTES);
     }
 }

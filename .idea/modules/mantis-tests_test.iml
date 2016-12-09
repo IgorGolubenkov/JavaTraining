@@ -77,7 +77,6 @@
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.2.18.v20160721" level="project" />
     <orderEntry type="library" name="Gradle: net.java.dev.jna:jna:4.1.0" level="project" />
     <orderEntry type="library" name="Gradle: xml-apis:xml-apis:1.4.01" level="project" />
-    <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:5.2.3.Final" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="mantis-tests_main" />
 </module>

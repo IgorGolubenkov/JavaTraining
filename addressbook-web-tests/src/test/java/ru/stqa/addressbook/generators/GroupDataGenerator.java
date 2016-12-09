@@ -7,7 +7,7 @@ import com.beust.jcommander.converters.StringConverter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
-import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.model.GroupData
 
 import java.io.File;
 import java.io.FileWriter;

@@ -19,7 +19,7 @@ public class Groups extends ForwardingSet<GroupData> {
         this.delegate = new HashSet<GroupData>();
     }
 
-    public Groups(Collection<GroupData> groups) {
+    public Groups(Set<ru.stqa.addressbook.model.GroupData> groups) {
         this.delegate = new HashSet<GroupData>(groups);
     }
 
